@@ -1,0 +1,136 @@
+﻿.barra-navegador {
+  position: fixed;
+  inset: 0 auto auto 0;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 9999;
+  background: rgba(27, 11, 42, 0.95);
+  border-bottom: 1px solid rgba(92, 61, 124, 0.8);
+  backdrop-filter: blur(14px);
+}
+
+.barra-navegador__inner {
+  margin: 0 auto;
+  max-width: 1200px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.9rem 1rem;
+}
+
+.barra-navegador__brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.9rem;
+  color: #c6a851;
+  text-decoration: none;
+}
+
+.barra-navegador__logo {
+  width: 44px;
+  height: 44px;
+  border-radius: 9999px;
+  border: 1px solid #c6a851;
+  background: rgba(63, 35, 99, 0.35);
+}
+
+.barra-navegador__title {
+  margin: 0;
+  font-size: 0.95rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+}
+
+.barra-navegador__subtitle {
+  margin: 0;
+  font-size: 0.75rem;
+  color: #d9c079;
+}
+
+.barra-navegador__toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 14px;
+  border: 1px solid rgba(198, 168, 81, 0.8);
+  background: rgba(63, 35, 99, 0.22);
+  color: #c6a851;
+  cursor: pointer;
+  transition: background 0.25s ease;
+}
+
+.barra-navegador__toggle:hover {
+  background: rgba(92, 61, 124, 0.35);
+}
+
+.barra-navegador__toggle span {
+  display: block;
+  width: 20px;
+  height: 2px;
+  margin: 3px 0;
+  background: currentColor;
+  border-radius: 9999px;
+}
+
+.barra-navegador__links {
+  display: none;
+  flex-direction: column;
+  gap: 0.5rem;
+  width: 100%;
+  padding: 1rem 0 0;
+}
+
+.barra-navegador__links--open {
+  display: flex;
+}
+
+.barra-navegador__links a {
+  display: block;
+  padding: 0.9rem 1rem;
+  border-radius: 12px;
+  color: #c6a851;
+  text-decoration: none;
+  background: rgba(255, 255, 255, 0.03);
+  transition: background 0.25s ease, color 0.25s ease;
+}
+
+.barra-navegador__links a:hover {
+  background: #5d3b7c;
+  color: #ffffff;
+}
+
+@media (min-width: 1024px) {
+  .barra-navegador {
+    position: fixed;
+  }
+
+  .barra-navegador__inner {
+    padding: 1rem 1.5rem;
+  }
+
+  .barra-navegador__toggle {
+    display: none;
+  }
+
+  .barra-navegador__links {
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+    width: auto;
+    padding: 0;
+  }
+
+  .barra-navegador__links--open {
+    display: flex;
+  }
+
+  .barra-navegador__links a {
+    padding: 0.8rem 1rem;
+    background: transparent;
+  }
+}

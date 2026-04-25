@@ -1,0 +1,30 @@
+import { useState } from 'react'
+import BarraNavegador from './Componets/BarraNavegador/BarraNavegador.jsx'
+import Header from './Componets/Header/Header.jsx'
+import Presentacion from './Componets/Presentacion/Presentacion.jsx'
+import Servicios from './Componets/Servicios/Servicios.jsx'
+import Galeria from './Componets/Galeria/Galeria.jsx'
+import Aside from './Componets/Aside/Aside.jsx'
+import Footer from './Componets/Footer/Footer.jsx'
+import './App.css'
+
+
+function App() {
+  const [count, setCount] = useState(0)
+
+  return (
+    <>
+      <BarraNavegador />
+      <div className="pt-28">
+        <Header />
+        <Presentacion />
+        <Galeria />
+        <Servicios />
+        <Aside />
+        <Footer />
+      </div>
+    </>
+  )
+}
+
+export default App

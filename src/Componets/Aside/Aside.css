@@ -1,9 +1,10 @@
-*{
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
-aside {
+
+.socialAside {
     position: fixed;
     right: 20px;
     bottom: 20px;
@@ -13,17 +14,7 @@ aside {
     z-index: 999;
 }
 
-.social-aside {
-    position: fixed;
-    right: 20px;
-    bottom: 20px;
-    display: flex;
-    flex-direction: column;
-    gap: 14px;
-    z-index: 999;
-}
-
-.social-aside__link {
+.socialAsideLink {
     width: 52px;
     height: 52px;
     border-radius: 50%;
@@ -34,24 +25,24 @@ aside {
     text-decoration: none;
 }
 
-.social-aside__link img {
+.socialAsideLink img {
     width: 26px;
     height: 26px;
 }
 
-.social-aside__whatsapp {
+.socialAsideWhatsapp {
     background: #25D366;
 }
 
-.social-aside__instagram {
+.socialAsideInstagram {
     background: radial-gradient(circle at 30% 30%, #feda75, #d62976 50%, #8134af 70%, #515bd4);
 }
 
-.social-aside__email {
+.socialAsideEmail {
     background: #D44638;
 }
 
-.social-aside__link:hover {
+.socialAsideLink:hover {
     transform: scale(1.1);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
 }

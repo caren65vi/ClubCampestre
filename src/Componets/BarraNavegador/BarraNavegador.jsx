@@ -1,4 +1,4 @@
-﻿import React, { useState } from 'react';
+import React, { useState } from 'react';
 import './barraNavegador.css';
 import LogoDos from '../../assets/LogoDos.png';
 
@@ -6,18 +6,18 @@ const BarraNavegador = () => {
   const [menuOpen, setMenuOpen] = useState(false);
 
   return (
-    <nav className="barra-navegador">
-      <div className="barra-navegador__inner">
-        <a href="#inicio" className="barra-navegador__brand">
-          <img src={LogoDos} alt="Logo Villa Katy" className="barra-navegador__logo" />
+    <nav className="barraNavegador">
+      <div className="barraNavegadorInner">
+        <a href="#inicio" className="barraNavegadorBrand">
+          <img src={LogoDos} alt="Logo Villa Katy" className="barraNavegadorLogo" />
           <div>
-            <p className="barra-navegador__title">Villa Katy</p>
-            <p className="barra-navegador__subtitle">Club Campestre</p>
+            <p className="barraNavegadorTitle">Villa Katy</p>
+            <p className="barraNavegadorSubtitle">Club Campestre</p>
           </div>
         </a>
 
         <button
-          className="barra-navegador__toggle"
+          className="barraNavegadorToggle"
           type="button"
           aria-expanded={menuOpen}
           aria-label="Abrir menú"
@@ -27,7 +27,7 @@ const BarraNavegador = () => {
           <span />
         </button>
 
-        <div className={`barra-navegador__links ${menuOpen ? 'barra-navegador__links--open' : ''}`}>
+        <div className={`barraNavegadorLinks ${menuOpen ? 'barraNavegadorLinksOpen' : ''}`}>
           <a href="#inicio" onClick={() => setMenuOpen(false)}>Inicio</a>
           <a href="#sobre-nosotros" onClick={() => setMenuOpen(false)}>Sobre Nosotros</a>
           <a href="#servicios" onClick={() => setMenuOpen(false)}>Servicios</a>

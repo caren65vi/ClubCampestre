@@ -1,25 +1,24 @@
-
 import React from 'react'
 import './Footer.css'
 
 const Footer = () => {
   return (
     <footer className="footer">
-      <div className="footer__grid">
-        <div className="footer__brand">
+      <div className="footerGrid">
+        <div className="footerBrand">
           <h2>Villa Katy</h2>
-          <p className="footer__subtitle">CLUB CAMPESTRE</p>
-          <p className="footer__text">
+          <p className="footerSubtitle">CLUB CAMPESTRE</p>
+          <p className="footerText">
             Descanso, naturaleza y bienestar en un solo lugar. Tu escape perfecto en el corazón de Colombia.
           </p>
-          <div className="footer__socials">
+          <div className="footerSocials">
             <a href="https://www.instagram.com/hotel.lascoralinasoficial" target="_blank" rel="noreferrer noopener">I</a>
             <a href="https://wa.me/573243376439" target="_blank" rel="noreferrer noopener">W</a>
             <a href="mailto:contacto@villakaty.com">M</a>
           </div>
         </div>
 
-        <div className="footer__column">
+        <div className="footerColumn">
           <h3>Navegación</h3>
           <ul>
             <li><a href="#inicio">Inicio</a></li>
@@ -31,7 +30,7 @@ const Footer = () => {
           </ul>
         </div>
 
-        <div className="footer__column">
+        <div className="footerColumn">
           <h3>Servicios</h3>
           <ul>
             <li>Restaurante</li>
@@ -43,7 +42,7 @@ const Footer = () => {
           </ul>
         </div>
 
-        <div className="footer__column footer__contact">
+        <div className="footerColumn footerContact">
           <h3>Contacto</h3>
           <ul>
             <li>Florencia, Caquetá Colombia</li>
@@ -54,15 +53,15 @@ const Footer = () => {
         </div>
       </div>
 
-      <div className="footer__hero">
+      <div className="footerHero">
         <span>Reserva 100% segura</span>
         <span>Atención personalizada</span>
         <span>Entorno natural único</span>
       </div>
 
-      <div className="footer__bottom">
+      <div className="footerBottom">
         <p>© 2026 Club Campestre Villa Katy. Todos los derechos reservados.</p>
-        <div className="footer__legal">
+        <div className="footerLegal">
           <span>Política de privacidad</span>
           <span>Términos de uso</span>
           <span>Cookies</span>

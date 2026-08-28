@@ -1,0 +1,67 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;500;600;700;800&display=swap');
+
+:root {
+  color-scheme: light;
+  --color-bg: #FAF7F0;
+  --color-bg-secondary: #F0EAD9;
+  --color-surface: #FFFFFF;
+  --color-surface-soft: #F0EAD9;
+  --color-text: #1A1A1A;
+  --color-text-muted: #5C4E38;
+  --color-accent: #A9803F;
+  --color-accent-soft: #D7B878;
+  --color-cta: #D97B4F;
+  --color-pool: #2C8580;
+  --color-nature: #3A4A2E;
+  --color-border: rgba(169, 128, 63, 0.28);
+  --color-card-shadow: rgba(26, 26, 26, 0.12);
+  --color-overlay: rgba(250, 247, 240, 0.9);
+  --color-nav-bg: rgba(250, 247, 240, 0.96);
+  --color-input-bg: rgba(255, 255, 255, 0.72);
+  --color-button-text: #1A1A1A;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    color-scheme: dark;
+    --color-bg: #141414;
+    --color-bg-secondary: #1F1F1F;
+    --color-surface: #1F1F1F;
+    --color-surface-soft: #242424;
+    --color-text: #F5F1E8;
+    --color-text-muted: #C9C0A8;
+    --color-accent: #C9A25C;
+    --color-accent-soft: #E0C684;
+    --color-cta: #E8956B;
+    --color-pool: #3AA6A0;
+    --color-nature: #4A5D3A;
+    --color-border: rgba(201, 162, 92, 0.34);
+    --color-card-shadow: rgba(0, 0, 0, 0.46);
+    --color-overlay: rgba(20, 20, 20, 0.84);
+    --color-nav-bg: rgba(20, 20, 20, 0.96);
+    --color-input-bg: rgba(255, 255, 255, 0.07);
+    --color-button-text: #141414;
+  }
+}
+
+html {
+  background: var(--color-bg);
+  color: var(--color-text);
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: 'Nunito Sans', Arial, sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}

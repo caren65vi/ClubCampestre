@@ -1,4 +1,4 @@
-﻿import React from 'react'
+import React from 'react'
 import './Servicios.css'
 
 const servicios = [
@@ -58,23 +58,23 @@ const iconPaths = {
 
 const Servicios = () => {
   return (
-    <section className="servicios-section" id="servicios">
-      <div className="servicios-card">
-        <div className="servicios-header">
+    <section className="serviciosSection" id="servicios">
+      <div className="serviciosCard">
+        <div className="serviciosHeader">
           <h2>Servicios</h2>
           <p>En el club campestre encuentras todo lo necesario para una estadía cómoda, tranquila y sin complicaciones.</p>
         </div>
 
-        <div className="servicios-grid">
+        <div className="serviciosGrid">
           {servicios.map((item) => (
-            <div key={item.label} className="servicio-item">
-              <div className="servicio-icon">{iconPaths[item.icon]}</div>
-              <span className="servicio-label">{item.label}</span>
+            <div key={item.label} className="servicioItem">
+              <div className="servicioIcon">{iconPaths[item.icon]}</div>
+              <span className="servicioLabel">{item.label}</span>
             </div>
           ))}
         </div>
 
-        <div className="servicios-action">
+        <div className="serviciosAction">
           <button type="button">Reservar ahora</button>
         </div>
       </div>

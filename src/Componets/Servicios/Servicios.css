@@ -1,122 +1,125 @@
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Lato:wght@300;400;700&display=swap');
-
-.servicios-section {
+.serviciosSection {
   padding: 64px 24px;
-  background: #f8f6f0;
+  background: var(--color-bg-secondary);
 }
 
-.servicios-card {
+.serviciosCard {
   max-width: 1120px;
   margin: 0 auto;
-  background: #ffffff;
-  border: 1px solid rgba(201, 162, 39, 0.18);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
   border-radius: 32px;
-  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 4px 14px var(--color-card-shadow);
   padding: 48px;
 }
 
-.servicios-header {
+.serviciosHeader {
   text-align: center;
   margin-bottom: 42px;
 }
 
-.servicios-header h2 {
-  font-family: 'Playfair Display', serif;
-  color: #c6a851;
+.serviciosHeader h2 {
+  font-family: inherit;
+  color: var(--color-accent);
   font-size: clamp(2rem, 3vw, 3rem);
+  font-weight: 800;
+  letter-spacing: 0;
   margin: 0;
 }
 
-.servicios-header p {
+.serviciosHeader p {
   margin: 18px auto 0;
-  max-width: 780px;
-  color: #4a3b2a;
+  max-width: 68ch;
+  color: var(--color-text-muted);
   line-height: 1.85;
-  font-family: 'Lato', sans-serif;
+  font-family: inherit;
   font-size: 1rem;
 }
 
-.servicios-grid {
+.serviciosGrid {
   display: grid;
   grid-template-columns: repeat(3, minmax(220px, 1fr));
   gap: 24px;
 }
 
-.servicio-item {
-  background: #fdfaf4;
-  border: 1px solid rgba(201, 162, 39, 0.18);
+.servicioItem {
+  background: var(--color-surface-soft);
+  border: 1px solid var(--color-border);
   border-radius: 24px;
   padding: 28px 20px;
   text-align: center;
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  box-shadow: 0 4px 14px color-mix(in srgb, var(--color-card-shadow) 60%, transparent);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-.servicio-item:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 24px 40px rgba(0, 0, 0, 0.12);
+.servicioItem:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 20px var(--color-card-shadow);
 }
 
-.servicio-icon {
+.servicioIcon {
   width: 86px;
   height: 86px;
   margin: 0 auto 18px;
   border-radius: 50%;
   display: grid;
   place-items: center;
-  background: linear-gradient(135deg, #f7ce4b 0%, #c9a227 100%);
-  color: #1a1000;
+  background: linear-gradient(135deg, var(--color-accent) 0%, var(--color-cta) 100%);
+  color: var(--color-button-text);
+  box-shadow: 0 4px 12px color-mix(in srgb, var(--color-card-shadow) 70%, transparent);
 }
 
-.servicio-icon svg {
+.servicioIcon svg {
   width: 38px;
   height: 38px;
 }
 
-.servicio-label {
+.servicioLabel {
   display: block;
   margin-top: 10px;
   font-weight: 700;
-  color: #2c1a00;
+  color: var(--color-text);
   font-size: 1rem;
   text-transform: capitalize;
 }
 
-.servicios-action {
+.serviciosAction {
   text-align: center;
   margin-top: 36px;
 }
 
-.servicios-action button {
-  font-family: 'Lato', sans-serif;
-  font-size: 0.95rem;
+.serviciosAction button {
+  font-family: inherit;
+  font-size: 1rem;
   letter-spacing: 0.08em;
   text-transform: uppercase;
   padding: 14px 30px;
   border-radius: 14px;
   border: none;
-  background: #1a1000;
-  color: #fdfaf4;
+  background: var(--color-cta);
+  color: var(--color-button-text);
   cursor: pointer;
+  width: auto;
   transition: transform 0.25s ease, background 0.25s ease, box-shadow 0.25s ease;
 }
 
-.servicios-action button:hover {
-  background: #413006;
+.serviciosAction button:hover {
+  background: var(--color-accent-soft);
   transform: translateY(-2px);
   box-shadow: 0 18px 32px rgba(0, 0, 0, 0.18);
 }
 
 @media (max-width: 960px) {
-  .servicios-grid {
+  .serviciosGrid {
     grid-template-columns: repeat(2, minmax(220px, 1fr));
   }
 }
 
 @media (max-width: 720px) {
-  .servicios-card {
+  .serviciosCard {
     padding: 32px 20px;
   }
-  .servicios-grid {
+  .serviciosGrid {
     grid-template-columns: 1fr;
   }
 }

@@ -1,16 +1,16 @@
-﻿.barra-navegador {
+.barraNavegador {
   position: fixed;
   inset: 0 auto auto 0;
   top: 0;
   left: 0;
   right: 0;
   z-index: 9999;
-  background: rgba(27, 11, 42, 0.95);
-  border-bottom: 1px solid rgba(92, 61, 124, 0.8);
-  backdrop-filter: blur(14px);
+  background: var(--color-nav-bg);
+  border-bottom: 1px solid var(--color-border);
+  backdrop-filter: blur(20px);
 }
 
-.barra-navegador__inner {
+.barraNavegadorInner {
   margin: 0 auto;
   max-width: 1200px;
   display: flex;
@@ -20,55 +20,55 @@
   padding: 0.9rem 1rem;
 }
 
-.barra-navegador__brand {
+.barraNavegadorBrand {
   display: inline-flex;
   align-items: center;
   gap: 0.9rem;
-  color: #c6a851;
+  color: var(--color-accent);
   text-decoration: none;
 }
 
-.barra-navegador__logo {
+.barraNavegadorLogo {
   width: 44px;
   height: 44px;
   border-radius: 9999px;
-  border: 1px solid #c6a851;
-  background: rgba(63, 35, 99, 0.35);
+  border: 1px solid var(--color-border);
+  background: color-mix(in srgb, var(--color-accent) 10%, transparent);
 }
 
-.barra-navegador__title {
+.barraNavegadorTitle {
   margin: 0;
-  font-size: 0.95rem;
+  font-size: 1rem;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.15em;
 }
 
-.barra-navegador__subtitle {
+.barraNavegadorSubtitle {
   margin: 0;
-  font-size: 0.75rem;
-  color: #d9c079;
+  font-size: 1rem;
+  color: var(--color-text-muted);
 }
 
-.barra-navegador__toggle {
+.barraNavegadorToggle {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   width: 44px;
   height: 44px;
   border-radius: 14px;
-  border: 1px solid rgba(198, 168, 81, 0.8);
-  background: rgba(63, 35, 99, 0.22);
-  color: #c6a851;
+  border: 1px solid var(--color-border);
+  background: color-mix(in srgb, var(--color-accent) 8%, transparent);
+  color: var(--color-accent);
   cursor: pointer;
   transition: background 0.25s ease;
 }
 
-.barra-navegador__toggle:hover {
-  background: rgba(92, 61, 124, 0.35);
+.barraNavegadorToggle:hover {
+  background: color-mix(in srgb, var(--color-accent) 16%, transparent);
 }
 
-.barra-navegador__toggle span {
+.barraNavegadorToggle span {
   display: block;
   width: 20px;
   height: 2px;
@@ -77,7 +77,7 @@
   border-radius: 9999px;
 }
 
-.barra-navegador__links {
+.barraNavegadorLinks {
   display: none;
   flex-direction: column;
   gap: 0.5rem;
@@ -85,39 +85,33 @@
   padding: 1rem 0 0;
 }
 
-.barra-navegador__links--open {
+.barraNavegadorLinksOpen {
   display: flex;
 }
 
-.barra-navegador__links a {
+.barraNavegadorLinks a {
   display: block;
   padding: 0.9rem 1rem;
   border-radius: 12px;
-  color: #c6a851;
+  color: var(--color-text);
   text-decoration: none;
-  background: rgba(255, 255, 255, 0.03);
+  background: color-mix(in srgb, var(--color-surface) 72%, transparent);
   transition: background 0.25s ease, color 0.25s ease;
+  font-size: 1rem;
+  letter-spacing: 0.06em;
 }
 
-.barra-navegador__links a:hover {
-  background: #5d3b7c;
-  color: #ffffff;
+.barraNavegadorLinks a:hover {
+  background: color-mix(in srgb, var(--color-accent) 14%, transparent);
+  color: var(--color-accent);
 }
 
 @media (min-width: 1024px) {
-  .barra-navegador {
-    position: fixed;
-  }
-
-  .barra-navegador__inner {
-    padding: 1rem 1.5rem;
-  }
-
-  .barra-navegador__toggle {
+  .barraNavegadorToggle {
     display: none;
   }
 
-  .barra-navegador__links {
+  .barraNavegadorLinks {
     display: flex;
     flex-direction: row;
     gap: 1rem;
@@ -125,11 +119,11 @@
     padding: 0;
   }
 
-  .barra-navegador__links--open {
+  .barraNavegadorLinksOpen {
     display: flex;
   }
 
-  .barra-navegador__links a {
+  .barraNavegadorLinks a {
     padding: 0.8rem 1rem;
     background: transparent;
   }

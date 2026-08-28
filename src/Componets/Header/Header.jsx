@@ -5,7 +5,7 @@ const Header = () => {
   return (
     <div>
        <header id="inicio">
-        <div>
+        <div className="reservaPanel" id="reservar">
             <p>RESERVA AHORA</p>
 
             <div className="campo">

@@ -1,0 +1,186 @@
+.registrar-empleado-page {
+	color: var(--color-text);
+	width: 100%;
+}
+
+.registrar-empleado-page__header {
+	background-image: none;
+	height: auto;
+	margin-bottom: 22px;
+	width: auto;
+}
+
+.registrar-empleado-page__header span {
+	color: var(--color-accent);
+	font-size: 12px;
+	font-weight: 800;
+	letter-spacing: 0.08em;
+	text-transform: uppercase;
+}
+
+.registrar-empleado-page__header h1 {
+	font-size: 40px;
+	line-height: 1.1;
+	margin: 8px 0 0;
+}
+
+.registrar-empleado {
+	background: var(--color-surface);
+	border: 1px solid var(--color-border);
+	border-radius: 16px;
+	box-sizing: border-box;
+	box-shadow: 0 12px 30px var(--color-card-shadow);
+	color: var(--color-text);
+	max-width: none;
+	padding: 28px 32px 24px;
+	width: 100%;
+}
+
+.re-section { margin-bottom: 26px; }
+
+.re-section__header {
+	align-items: center;
+	display: flex;
+	justify-content: space-between;
+}
+
+.re-section__title {
+	border-bottom: 1px solid var(--color-border);
+	font-size: 1rem;
+	font-weight: 700;
+	margin: 0 0 12px;
+	padding-bottom: 10px;
+}
+
+.re-section__header .re-section__title {
+	border-bottom: 0;
+	margin-bottom: 0;
+	padding-bottom: 0;
+}
+
+.re-section:has(.re-section__header) { border-bottom: 0; }
+
+.re-section__header + .re-contacto-row,
+.re-section__header ~ * { margin-top: 12px; }
+
+.re-grid {
+	display: grid;
+	gap: 16px 20px;
+	grid-template-columns: 1fr 1fr;
+}
+
+.re-field {
+	display: flex;
+	flex-direction: column;
+	gap: 6px;
+}
+
+.re-field label {
+	color: var(--color-text-muted);
+	font-size: 0.82rem;
+	font-weight: 500;
+}
+
+.re-field input,
+.re-field select {
+	background: var(--color-input-bg);
+	border: 1px solid var(--color-border);
+	border-radius: 10px;
+	color: var(--color-text);
+	font-size: 0.95rem;
+	outline: none;
+	padding: 10px 12px;
+	transition: border-color 0.15s ease;
+}
+
+.re-field input::placeholder { color: var(--color-text-muted); opacity: 0.65; }
+
+.re-field input:focus,
+.re-field select:focus { border-color: var(--color-accent); }
+
+.re-link-btn {
+	align-items: center;
+	background: transparent;
+	border: 0;
+	color: var(--color-pool);
+	cursor: pointer;
+	display: flex;
+	font-size: 0.88rem;
+	font-weight: 600;
+	gap: 6px;
+	margin-top: 10px;
+	padding: 0;
+}
+
+.re-link-btn:hover { color: var(--color-accent); text-decoration: underline; }
+
+.re-contacto-row {
+	align-items: end;
+	display: grid;
+	gap: 14px;
+	grid-template-columns: 0.8fr 0.7fr 1.6fr auto;
+	margin-top: 14px;
+}
+
+.re-field--tipo { grid-column: span 1; }
+.re-field--correo { grid-column: span 2; }
+
+.re-delete-btn {
+	align-items: center;
+	background: var(--color-surface);
+	border: 1px solid var(--color-border);
+	border-radius: 10px;
+	color: var(--color-text);
+	cursor: pointer;
+	display: flex;
+	height: 40px;
+	justify-content: center;
+	transition: background 0.15s ease;
+	width: 40px;
+}
+
+.re-delete-btn:hover { background: var(--color-surface-soft); }
+
+.re-actions {
+	border-top: 1px solid var(--color-border);
+	display: flex;
+	gap: 12px;
+	justify-content: flex-end;
+	padding-top: 16px;
+}
+
+.re-btn {
+	border: 1px solid transparent;
+	border-radius: 10px;
+	cursor: pointer;
+	font-size: 0.9rem;
+	font-weight: 600;
+	padding: 10px 20px;
+}
+
+.re-btn--ghost {
+	background: var(--color-surface);
+	border-color: var(--color-border);
+	color: var(--color-text);
+}
+
+.re-btn--ghost:hover { background: var(--color-surface-soft); }
+
+.re-btn--primary {
+	background: var(--color-cta);
+	color: var(--color-button-text);
+}
+
+.re-btn--primary:hover { background: var(--color-accent); }
+
+@media (max-width: 640px) {
+	.registrar-empleado-page__header h1 { font-size: 32px; }
+	.registrar-empleado { padding: 22px 18px; }
+	.re-grid,
+	.re-contacto-row { grid-template-columns: 1fr; }
+	.re-field--correo { grid-column: span 1; }
+	.re-delete-btn { justify-self: flex-end; }
+	.re-actions { flex-direction: column-reverse; }
+	.re-btn { width: 100%; }
+}
+

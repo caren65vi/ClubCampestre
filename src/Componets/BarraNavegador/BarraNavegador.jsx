@@ -1,9 +1,11 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './barraNavegador.css';
 import LogoDos from '../../assets/LogoDos.png';
 
 const BarraNavegador = () => {
   const [menuOpen, setMenuOpen] = useState(false);
+  const navigate = useNavigate();
 
   return (
     <nav className="barraNavegador">
@@ -34,6 +36,8 @@ const BarraNavegador = () => {
           <a href="#galeria" onClick={() => setMenuOpen(false)}>Galería</a>
           <a href="#restaurante" onClick={() => setMenuOpen(false)}>Restaurante</a>
         </div>
+
+        <button type="button" onClick={() => navigate('/login')}>Iniciar sesión</button>
       </div>
     </nav>
   );

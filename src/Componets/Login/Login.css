@@ -1,422 +1,413 @@
-.login-wrapper {
-  --villa-bg: var(--color-bg);
-  --villa-bg-strong: var(--color-bg-secondary);
-  --villa-surface: var(--color-surface-soft);
-  --villa-surface-strong: color-mix(in srgb, var(--color-surface) 92%, transparent);
-  --villa-accent: var(--color-accent);
-  --villa-accent-soft: var(--color-accent-soft);
-  --villa-cta: var(--color-cta);
-  --villa-teal: var(--color-pool);
-  --villa-text: var(--color-text);
-  --villa-text-muted: var(--color-text-muted);
-  --villa-border: var(--color-border);
-  --villa-shadow: var(--color-card-shadow);
-  --villa-bg-pattern: color-mix(in srgb, var(--color-accent) 12%, transparent);
+/* Login dividido: panel de marca + formulario. Colores tomados de los tokens de App.css */
+.lg-page {
+  --lg-danger: #B42318;
+  --lg-panel-oscuro: color-mix(in srgb, #1A1A1A 82%, var(--color-accent));
+  --lg-panel-texto: #F5F1E8;
+  --lg-panel-suave: color-mix(in srgb, #F5F1E8 78%, var(--color-accent));
+  --lg-panel-linea: color-mix(in srgb, #F5F1E8 22%, transparent);
+  --lg-panel-acento: var(--color-accent-soft);
 
-  align-items: center;
-  background:
-    radial-gradient(circle at top left, color-mix(in srgb, var(--color-accent) 18%, transparent), transparent 24rem),
-    radial-gradient(circle at bottom right, color-mix(in srgb, var(--color-pool) 14%, transparent), transparent 22rem),
-    linear-gradient(135deg, var(--villa-bg) 0%, var(--color-bg-secondary) 45%, var(--villa-bg) 100%);
-  display: grid;
-  gap: clamp(2rem, 6vw, 7rem);
-  grid-template-columns: minmax(260px, 440px) minmax(320px, 420px);
-  justify-content: center;
-  min-height: 100dvh;
+  background: var(--color-bg);
+  box-sizing: border-box;
+  color: var(--color-text);
+  height: 100dvh;
   overflow: hidden;
-  padding: 3rem;
-  position: relative;
 }
 
-.login-wrapper::before {
-  background-image: radial-gradient(circle, var(--villa-bg-pattern) 1px, transparent 1px);
-  background-size: 22px 22px;
-  content: '';
-  inset: 0;
-  opacity: 0.8;
-  pointer-events: none;
-  position: absolute;
+@media (prefers-color-scheme: dark) {
+  .lg-page { --lg-danger: #F2B8B5; }
 }
 
-.login-wrapper > * {
-  min-width: 0;
-  position: relative;
-  z-index: 1;
-}
+.lg-page *,
+.lg-page *::before,
+.lg-page *::after { box-sizing: border-box; }
 
-.login-header-brand {
-  max-width: 420px;
-}
+.lg-page h1,
+.lg-page h2,
+.lg-page p { margin: 0; }
 
-.login-brand-block {
-  align-items: center;
-  display: flex;
-  gap: 1rem;
-  margin-bottom: 1rem;
-}
-
-.login-logo {
-  border: 1px solid var(--villa-border);
-  border-radius: 18px;
-  background: var(--villa-surface-strong);
-  box-shadow: 0 12px 30px var(--villa-shadow);
-  height: 72px;
-  object-fit: contain;
-  padding: 0.55rem;
-  width: 72px;
-}
-
-.login-brand-kicker {
-  color: var(--villa-accent);
-  font-size: 0.82rem;
-  font-weight: 800;
-  letter-spacing: 0.14em;
-  margin: 0 0 0.25rem;
-  text-transform: uppercase;
-}
-
-.login-header-brand h1 {
-  color: var(--villa-text);
-  font-size: clamp(2.5rem, 4vw, 4rem);
-  font-weight: 800;
-  letter-spacing: -0.04em;
-  line-height: 1;
-  margin: 0;
-}
-
-.login-brand-copy {
-  color: var(--villa-text);
-  font-size: 1.12rem;
-  line-height: 1.6;
-  margin: 0;
-  max-width: 360px;
-}
-
-.login-header-brand small {
-  color: var(--villa-text-muted);
-  display: block;
-  font-size: 0.8rem;
-  font-weight: 700;
-  letter-spacing: 0.1em;
-  margin-top: 1rem;
-  text-transform: uppercase;
-}
-
-.login-loading {
-  align-items: center;
-  color: var(--villa-text-muted);
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  justify-content: center;
-  min-height: 100dvh;
-}
-
-.login-form-col {
-  display: flex;
-  flex-direction: column;
-  gap: 0.8rem;
-  min-width: 0;
-}
-
-.login-card {
-  background: var(--villa-surface-strong);
-  border: 1px solid var(--villa-border);
-  border-radius: 22px;
-  box-shadow: 0 22px 48px var(--villa-shadow);
-  max-width: 420px;
-  padding: 2rem 1.75rem 1.5rem;
+/* Ocupa exactamente la pantalla, sin scroll: marca a la izquierda y formulario a la derecha */
+.lg-shell {
+  background: var(--color-bg);
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  height: 100dvh;
   width: 100%;
 }
 
-.login-title {
-  color: var(--villa-text) !important;
-  font-size: 2.15rem !important;
-  font-weight: 800 !important;
-  letter-spacing: -0.03em;
-  line-height: 1.1 !important;
-  text-align: center;
-}
-
-.login-subtitle {
-  color: var(--villa-text-muted) !important;
-  display: block;
-  margin: 0.45rem 0 1.5rem !important;
-  text-align: center;
-}
-
-.login-form {
-  display: grid;
-  gap: 0.85rem;
-}
-
-.login-form-actions {
+/* Panel de marca */
+.lg-brand-panel {
+  background:
+    linear-gradient(180deg,
+      color-mix(in srgb, var(--lg-panel-oscuro) 70%, transparent) 0%,
+      color-mix(in srgb, var(--lg-panel-oscuro) 15%, transparent) 30%,
+      color-mix(in srgb, var(--lg-panel-oscuro) 55%, transparent) 55%,
+      var(--lg-panel-oscuro) 100%),
+    url('../../assets/Uno.png') center 35% / cover no-repeat,
+    var(--lg-panel-oscuro);
+  color: var(--lg-panel-texto);
   display: flex;
-  justify-content: flex-end;
-  margin-top: -0.15rem;
+  flex-direction: column;
+  gap: 24px;
+  min-height: 0;
+  padding: clamp(28px, 4vw, 56px);
 }
 
-.login-link {
-  color: var(--villa-teal) !important;
-  font-size: 0.85rem !important;
-  padding: 0 !important;
-  text-transform: none !important;
+.lg-brand { align-items: center; display: flex; gap: 14px; }
+
+.lg-brand__logo {
+  align-items: center;
+  background: #FFFFFF;
+  border-radius: 14px;
+  display: inline-flex;
+  flex-shrink: 0;
+  height: 54px;
+  justify-content: center;
+  overflow: hidden;
+  width: 54px;
 }
 
-.login-primary-button,
-.login-secondary-button {
-  border-radius: 12px !important;
-  font-size: 0.95rem !important;
-  font-weight: 700 !important;
-  min-height: 48px;
-  text-transform: none !important;
+.lg-brand__logo img { height: 100%; object-fit: contain; padding: 6px; width: 100%; }
+.lg-brand strong { display: block; font-size: 1.55rem; font-weight: 800; line-height: 1.1; }
+.lg-brand small { color: var(--lg-panel-acento); display: block; font-size: .78rem; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; }
+
+.lg-brand-panel__contenido {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  margin-top: auto;
 }
 
-.login-primary-button {
-  background: var(--villa-cta) !important;
-  box-shadow: 0 10px 24px rgba(217, 123, 79, 0.24) !important;
-  color: #fff !important;
-  margin-top: 0.25rem !important;
-}
-
-.login-primary-button:hover {
-  background: #bd603a !important;
-}
-
-.login-divider {
-  color: var(--villa-text-muted) !important;
-  margin: 1.35rem 0 !important;
-}
-
-.login-socials {
-  display: grid;
-  gap: 0.7rem;
-}
-
-.login-secondary-button {
-  background: rgba(255, 255, 255, 0.62) !important;
-  border-color: var(--villa-border) !important;
-  color: var(--villa-text) !important;
-}
-
-.login-secondary-button:hover {
-  background: rgba(44, 133, 128, 0.08) !important;
-  border-color: var(--villa-teal) !important;
-  color: var(--villa-teal) !important;
-}
-
-.login-provider-icon {
-  font-size: 1.2rem !important;
-  margin-right: 0.55rem;
-}
-
-.login-form-col .MuiBox-root,
-.login-wrapper > .MuiBox-root {
-  min-height: auto !important;
-  width: 100% !important;
-}
-
-.loginRegisterHint {
-  color: var(--villa-text-muted);
-  font-size: 0.9rem;
-  text-align: center;
-}
-
-.loginRegisterHint a {
-  color: var(--villa-accent) !important;
+.lg-pill {
+  align-items: center;
+  align-self: flex-start;
+  backdrop-filter: blur(6px);
+  background: color-mix(in srgb, #F5F1E8 12%, transparent);
+  border: 1px solid var(--lg-panel-linea);
+  border-radius: 999px;
+  color: var(--lg-panel-suave);
+  display: inline-flex;
+  font-size: .78rem;
   font-weight: 700;
-  text-decoration: none !important;
+  gap: 6px;
+  padding: 5px 12px;
 }
 
-.loginRegisterHint a:hover {
-  color: var(--villa-teal) !important;
-  text-decoration: underline !important;
+.lg-brand-panel h1 {
+  font-size: clamp(1.8rem, 3vw, 2.6rem);
+  font-weight: 800;
+  letter-spacing: -.01em;
+  line-height: 1.08;
 }
 
-.login-wrapper .MuiContainer-root {
-  max-width: 420px !important;
-  padding: 0 !important;
-  width: 100% !important;
+.lg-brand-panel p { color: var(--lg-panel-suave); font-size: 1rem; line-height: 1.55; max-width: 46ch; }
+
+.lg-brand-panel__pie {
+  border-top: 1px solid var(--lg-panel-linea);
+  color: var(--lg-panel-suave);
+  display: flex;
+  flex-wrap: wrap;
+  font-size: .78rem;
+  gap: 8px 16px;
+  justify-content: space-between;
+  padding-top: 18px;
 }
 
-.login-wrapper .MuiContainer-root > .MuiStack-root,
-.login-wrapper .MuiCard-root,
-.login-wrapper .MuiPaper-root {
-  background: var(--villa-surface-strong) !important;
-  border: 1px solid var(--villa-border) !important;
-  border-radius: 22px !important;
-  box-shadow: 0 22px 48px var(--villa-shadow) !important;
-  max-width: 420px !important;
-  padding: 1.8rem 1.7rem !important;
-  width: 100% !important;
+.lg-brand-panel__pie span { align-items: center; display: inline-flex; gap: 6px; }
+
+/* Panel del formulario */
+.lg-form-panel {
+  display: flex;
+  min-height: 0;
+  overflow-y: auto;
+  padding: clamp(20px, 3.5vh, 40px) clamp(24px, 4vw, 56px);
 }
 
-.login-wrapper h5,
-.login-wrapper .MuiTypography-h5 {
-  color: var(--villa-text) !important;
-  font-size: 2.15rem !important;
-  font-weight: 800 !important;
-  letter-spacing: -0.03em;
-  line-height: 1.1 !important;
+.lg-form-panel__inner { display: flex; flex-direction: column; gap: 18px; margin: auto; max-width: 440px; width: 100%; }
+
+.lg-tabs {
+  background: var(--color-surface-soft);
+  border: 1px solid var(--color-border);
+  border-radius: 14px;
+  display: grid;
+  gap: 4px;
+  grid-template-columns: 1fr 1fr;
+  padding: 5px;
 }
 
-.login-wrapper h6,
-.login-wrapper .MuiTypography-h6 {
-  color: var(--villa-text) !important;
-  font-weight: 700 !important;
+.lg-tab {
+  align-items: center;
+  background: transparent;
+  border: 0;
+  border-radius: 10px;
+  color: var(--color-text-muted);
+  cursor: pointer;
+  display: inline-flex;
+  font: inherit;
+  font-size: .88rem;
+  font-weight: 700;
+  gap: 8px;
+  justify-content: center;
+  min-height: 42px;
+  padding: 8px 10px;
+  text-align: center;
+  transition: background .15s, color .15s;
 }
 
-.login-wrapper .MuiTypography-body2,
-.login-wrapper .MuiTypography-subtitle1 {
-  color: var(--villa-text-muted) !important;
-  font-size: 0.9rem !important;
+.lg-tab:hover { color: var(--color-text); }
+
+.lg-shell--clientes .lg-tab--activa {
+  background: var(--color-surface);
+  box-shadow: 0 4px 12px var(--color-card-shadow);
+  color: var(--color-text);
 }
 
-.login-wrapper form > .MuiStack-root {
-  margin-top: 1rem !important;
-  row-gap: 0.8rem !important;
+.lg-shell--corporativo .lg-tab--activa {
+  background: var(--color-accent);
+  color: var(--color-button-text);
 }
 
-.login-wrapper .MuiOutlinedInput-root {
-  background: rgba(255, 255, 255, 0.7) !important;
-  border-radius: 12px !important;
-  color: var(--villa-text) !important;
-  min-height: 48px !important;
-}
+.lg-form-area { display: flex; flex-direction: column; gap: 12px; }
 
-.login-wrapper .MuiOutlinedInput-root fieldset {
-  border-color: var(--villa-border) !important;
-}
-
-.login-wrapper .MuiOutlinedInput-root:hover fieldset,
-.login-wrapper .MuiOutlinedInput-root.Mui-focused fieldset {
-  border-color: var(--villa-accent) !important;
-}
-
-.login-wrapper .MuiOutlinedInput-root.Mui-focused {
-  box-shadow: 0 0 0 3px rgba(169, 128, 63, 0.18) !important;
-}
-
-.login-wrapper .MuiInputLabel-root {
-  color: var(--villa-text-muted) !important;
-}
-
-.login-wrapper .MuiInputLabel-root.Mui-focused {
-  color: var(--villa-accent) !important;
-}
-
-.login-wrapper input {
-  color: var(--villa-text) !important;
-}
-
-.login-wrapper .MuiButton-containedPrimary,
-.login-wrapper .MuiButton-outlined,
-.login-wrapper .MuiButton-outlinedPrimary {
-  border-radius: 12px !important;
-  font-size: 1rem !important;
-  font-weight: 700 !important;
-  min-height: 48px;
-  text-transform: none !important;
-}
-
-.login-wrapper .MuiButton-containedPrimary {
-  background: linear-gradient(135deg, var(--villa-accent) 0%, var(--villa-cta) 100%) !important;
-  box-shadow: 0 10px 26px rgba(169, 128, 63, 0.28) !important;
-  color: #fff !important;
-}
-
-.login-wrapper .MuiButton-containedPrimary:hover {
-  background: linear-gradient(135deg, var(--villa-cta) 0%, var(--villa-accent) 100%) !important;
-  box-shadow: 0 12px 30px rgba(169, 128, 63, 0.32) !important;
-}
-
-.login-wrapper .MuiButton-outlined,
-.login-wrapper .MuiButton-outlinedPrimary {
-  background: rgba(255, 255, 255, 0.7) !important;
-  border-color: var(--villa-border) !important;
-  color: var(--villa-text) !important;
-}
-
-.login-wrapper .MuiButton-outlined:hover,
-.login-wrapper .MuiButton-outlinedPrimary:hover {
-  background: rgba(215, 184, 120, 0.15) !important;
-  border-color: var(--villa-accent) !important;
-  color: var(--villa-accent) !important;
-}
-
-.login-wrapper .MuiDivider-root::before,
-.login-wrapper .MuiDivider-root::after {
-  border-color: var(--villa-border) !important;
-}
-
-.login-wrapper .MuiDivider-wrapper {
-  color: var(--villa-text-muted) !important;
-  font-size: 0.72rem;
+.lg-kicker {
+  align-items: center;
+  color: color-mix(in srgb, var(--color-accent) 70%, var(--color-text));
+  display: inline-flex;
+  font-size: .75rem;
+  font-weight: 800;
+  gap: 6px;
+  letter-spacing: .06em;
   text-transform: uppercase;
 }
 
-.login-wrapper .MuiAlert-root {
-  background: rgba(217, 123, 79, 0.08) !important;
-  border: 1px solid rgba(217, 123, 79, 0.22) !important;
-  border-radius: 10px !important;
-  color: var(--villa-text) !important;
+.lg-title { font-size: clamp(1.5rem, 2.4vw, 1.9rem); font-weight: 800; line-height: 1.15; }
+/* La raya decorativa de main h2 (página de inicio) no aplica aquí */
+.lg-title::after { content: none !important; }
+.lg-lead { color: var(--color-text-muted); font-size: .92rem; line-height: 1.5; }
+.lg-help { color: var(--color-text-muted); font-size: .85rem; }
+.lg-help--center { font-size: .78rem; text-align: center; }
+.lg-cargando { color: var(--color-text-muted); font-size: .9rem; padding: 20px 0; }
+
+.lg-divider {
+  align-items: center;
+  color: var(--color-text-muted);
+  display: flex;
+  font-size: .72rem;
+  font-weight: 800;
+  gap: 12px;
+  letter-spacing: .06em;
+  margin-top: 2px !important;
+  text-transform: uppercase;
 }
 
-.login-wrapper .MuiCheckbox-root {
-  color: var(--villa-border) !important;
+.lg-divider::before,
+.lg-divider::after { background: var(--color-border); content: ""; flex: 1; height: 1px; }
+.lg-divider--left::before { display: none; }
+
+.lg-socials { display: grid; gap: 10px; }
+
+.lg-form { display: flex; flex-direction: column; gap: 12px; }
+
+.lg-field { display: flex; flex-direction: column; gap: 6px; }
+.lg-field__top { align-items: baseline; display: flex; gap: 10px; justify-content: space-between; }
+.lg-field label { font-size: .84rem; font-weight: 700; }
+
+.lg-input { position: relative; }
+
+.lg-input > svg {
+  color: var(--color-text-muted);
+  left: 14px;
+  pointer-events: none;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
 }
 
-.login-wrapper .MuiCheckbox-root.Mui-checked {
-  color: var(--villa-accent) !important;
+.lg-input input {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  color: var(--color-text);
+  font: inherit;
+  font-size: .95rem;
+  min-height: 46px;
+  padding: 0 44px 0 42px;
+  width: 100%;
 }
 
-.login-wrapper .MuiFormControlLabel-label {
-  color: var(--villa-text-muted) !important;
-  font-size: 0.85rem !important;
+.lg-input input::placeholder { color: var(--color-text-muted); opacity: .65; }
+
+.lg-input input:focus {
+  border-color: var(--color-accent);
+  outline: 3px solid color-mix(in srgb, var(--color-accent) 22%, transparent);
 }
 
-@media (max-width: 1024px) {
-  .login-wrapper {
-    align-content: start;
-    gap: 1.6rem;
-    grid-template-columns: minmax(0, 560px);
-    justify-items: center;
-    padding: 2rem 1.25rem;
-  }
+.lg-input input[aria-invalid="true"] { border-color: var(--lg-danger); }
 
-  .login-header-brand {
-    max-width: 100%;
-    text-align: center;
-  }
-
-  .login-brand-block {
-    justify-content: center;
-  }
-
-  .login-brand-copy {
-    margin-inline: auto;
-  }
+.lg-input__toggle {
+  align-items: center;
+  background: transparent;
+  border: 0;
+  border-radius: 8px;
+  color: var(--color-text-muted);
+  cursor: pointer;
+  display: inline-flex;
+  padding: 6px;
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
 }
 
-@media (max-width: 480px) {
-  .login-wrapper {
-    padding-top: 2rem;
-  }
+.lg-input__toggle:hover { color: var(--color-accent); }
 
-  .login-wrapper .MuiContainer-root > .MuiStack-root,
-  .login-wrapper .MuiCard-root,
-  .login-wrapper .MuiPaper-root {
-    border-radius: 16px !important;
-    padding: 1.35rem !important;
-  }
+.lg-check { align-items: center; color: var(--color-text-muted); cursor: pointer; display: inline-flex; font-size: .85rem; gap: 8px; }
+.lg-check input { accent-color: var(--color-accent); height: 16px; width: 16px; }
 
-  .login-card {
-    border-radius: 16px;
-    padding: 1.35rem;
-  }
+.lg-link {
+  align-items: center;
+  background: none;
+  border: 0;
+  color: color-mix(in srgb, var(--color-accent) 75%, var(--color-text));
+  cursor: pointer;
+  display: inline-flex;
+  font: inherit;
+  font-size: .8rem;
+  font-weight: 700;
+  gap: 6px;
+  padding: 0;
+  text-decoration: none;
+}
 
-  .login-wrapper h5,
-  .login-wrapper .MuiTypography-h5 {
-    font-size: 1.7rem !important;
-  }
+.lg-link:hover { text-decoration: underline; }
+.lg-link--center { align-self: center; }
+
+.lg-btn {
+  align-items: center;
+  border: 1px solid transparent;
+  border-radius: 12px;
+  cursor: pointer;
+  display: inline-flex;
+  font: inherit;
+  font-size: .95rem;
+  font-weight: 800;
+  gap: 10px;
+  justify-content: center;
+  min-height: 46px;
+  padding: 0 18px;
+  transition: background .15s, border-color .15s, filter .15s;
+}
+
+.lg-btn:disabled { cursor: not-allowed; opacity: .6; }
+.lg-btn--block { width: 100%; }
+
+.lg-btn--primary {
+  background: var(--color-cta);
+  box-shadow: 0 10px 22px color-mix(in srgb, var(--color-cta) 28%, transparent);
+  color: var(--color-button-text);
+}
+
+.lg-btn--primary:not(:disabled):hover { background: var(--color-accent); }
+
+.lg-btn--soft { background: var(--color-surface-soft); border-color: var(--color-border); color: var(--color-text); }
+.lg-btn--soft:not(:disabled):hover { background: color-mix(in srgb, var(--color-accent) 14%, var(--color-surface-soft)); }
+
+.lg-btn--social {
+  background: var(--color-surface);
+  border-color: var(--color-border);
+  color: var(--color-text);
+  font-weight: 700;
+}
+
+.lg-btn--social:not(:disabled):hover { border-color: var(--color-accent); }
+
+.lg-btn:focus-visible,
+.lg-tab:focus-visible,
+.lg-link:focus-visible,
+.lg-input__toggle:focus-visible { outline: 2px solid var(--color-accent); outline-offset: 2px; }
+
+.lg-alert {
+  align-items: flex-start;
+  border-radius: 10px;
+  display: flex;
+  font-size: .85rem;
+  gap: 8px;
+  line-height: 1.45;
+  padding: 10px 12px;
+}
+
+.lg-alert svg { flex-shrink: 0; margin-top: 1px; }
+.lg-alert--error { background: color-mix(in srgb, var(--lg-danger) 10%, transparent); color: var(--lg-danger); }
+.lg-alert--exito { background: color-mix(in srgb, var(--color-nature) 14%, transparent); color: color-mix(in srgb, var(--color-nature) 55%, var(--color-text)); }
+.lg-alert--info { background: color-mix(in srgb, var(--color-pool) 12%, transparent); color: color-mix(in srgb, var(--color-pool) 70%, var(--color-text)); }
+
+.lg-sesion {
+  align-items: center;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 14px;
+  display: grid;
+  gap: 12px 14px;
+  grid-template-columns: auto 1fr;
+  margin-top: 8px;
+  padding: 16px;
+}
+
+.lg-sesion__icono {
+  align-items: center;
+  background: color-mix(in srgb, var(--color-nature) 16%, transparent);
+  border-radius: 50%;
+  color: color-mix(in srgb, var(--color-nature) 55%, var(--color-text));
+  display: inline-flex;
+  height: 42px;
+  justify-content: center;
+  width: 42px;
+}
+
+.lg-sesion__texto { min-width: 0; }
+.lg-sesion__texto strong { display: block; }
+.lg-sesion__texto span { color: var(--color-text-muted); display: block; font-size: .85rem; overflow-wrap: anywhere; }
+.lg-sesion__acciones { display: grid; gap: 8px; grid-column: 1 / -1; grid-template-columns: 1fr 1fr; }
+
+.lg-form-panel__pie {
+  border-top: 1px solid var(--color-border);
+  display: flex;
+  justify-content: center;
+  padding-top: 12px;
+}
+
+@media (min-width: 961px) and (max-height: 900px) {
+  .lg-lead { display: none; }
+  .lg-form-panel__inner { gap: 14px; }
+  .lg-form-area, .lg-form { gap: 10px; }
+}
+
+@media (min-width: 961px) and (max-height: 740px) {
+  .lg-kicker { display: none; }
+  .lg-brand-panel__contenido > p { display: none; }
+}
+
+/* Tablet: el panel de marca pasa arriba y se resume */
+@media (max-width: 960px) {
+  .lg-page, .lg-shell { height: auto; min-height: 100dvh; overflow: visible; }
+  .lg-shell { grid-template-columns: 1fr; grid-template-rows: auto 1fr; }
+  .lg-brand-panel { background-position: center 40%; gap: 20px; padding: 28px 32px; }
+  .lg-form-panel { overflow: visible; }
+  .lg-brand-panel__contenido { margin-top: 0; }
+  .lg-brand-panel h1 { font-size: clamp(1.5rem, 4vw, 2rem); }
+  .lg-brand-panel__pie { display: none; }
+  .lg-form-panel { padding: 32px; }
+}
+
+/* Celular: la marca se resume y el formulario ocupa el resto */
+@media (max-width: 560px) {
+  .lg-brand-panel { padding: 22px 18px; }
+  .lg-brand-panel__contenido > p { display: none; }
+  .lg-brand-panel h1 { font-size: 1.35rem; }
+  .lg-brand strong { font-size: 1.3rem; }
+  .lg-brand__logo { height: 46px; width: 46px; }
+  .lg-form-panel { align-items: flex-start; padding: 22px 16px 28px; }
+  .lg-tab { font-size: .8rem; gap: 6px; padding: 8px 6px; }
+  .lg-field__top { flex-wrap: wrap; }
+  .lg-sesion__acciones { grid-template-columns: 1fr; }
 }

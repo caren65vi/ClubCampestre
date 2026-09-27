@@ -6,16 +6,34 @@
 .serviciosCard {
   max-width: 1120px;
   margin: 0 auto;
-  background: var(--color-surface);
+  background:
+    radial-gradient(circle at top right, color-mix(in srgb, var(--color-accent-soft) 22%, transparent), transparent 22rem),
+    radial-gradient(circle at bottom left, color-mix(in srgb, var(--color-cta) 10%, transparent), transparent 24rem),
+    var(--color-bg);
   border: 1px solid var(--color-border);
   border-radius: 32px;
   box-shadow: 0 4px 14px var(--color-card-shadow);
-  padding: 48px;
+  padding: 56px 48px 44px;
 }
 
 .serviciosHeader {
   text-align: center;
-  margin-bottom: 42px;
+  margin-bottom: 44px;
+}
+
+.serviciosBadge {
+  align-items: center;
+  background: color-mix(in srgb, var(--color-accent-soft) 24%, transparent);
+  border: 1px solid color-mix(in srgb, var(--color-accent-soft) 70%, transparent);
+  border-radius: 999px;
+  color: var(--color-accent);
+  display: inline-flex;
+  font-size: 0.72rem;
+  font-weight: 800;
+  gap: 6px;
+  letter-spacing: 0.06em;
+  padding: 6px 14px;
+  text-transform: uppercase;
 }
 
 .serviciosHeader h2 {
@@ -24,102 +42,129 @@
   font-size: clamp(2rem, 3vw, 3rem);
   font-weight: 800;
   letter-spacing: 0;
-  margin: 0;
+  line-height: 1.15;
+  margin: 12px 0 0;
 }
 
 .serviciosHeader p {
-  margin: 18px auto 0;
-  max-width: 68ch;
+  margin: 12px auto 0;
+  max-width: 60ch;
   color: var(--color-text-muted);
-  line-height: 1.85;
+  line-height: 1.7;
   font-family: inherit;
   font-size: 1rem;
 }
 
 .serviciosGrid {
   display: grid;
-  grid-template-columns: repeat(3, minmax(220px, 1fr));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 24px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
 }
 
 .servicioItem {
-  background: var(--color-surface-soft);
+  background: var(--color-surface);
   border: 1px solid var(--color-border);
-  border-radius: 24px;
-  padding: 28px 20px;
+  border-radius: 18px;
+  padding: 28px 24px;
   text-align: center;
-  box-shadow: 0 4px 14px color-mix(in srgb, var(--color-card-shadow) 60%, transparent);
+  box-shadow: 0 4px 14px color-mix(in srgb, var(--color-card-shadow) 50%, transparent);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .servicioItem:hover {
   transform: translateY(-4px);
-  box-shadow: 0 8px 20px var(--color-card-shadow);
+  box-shadow: 0 10px 24px var(--color-card-shadow);
 }
 
 .servicioIcon {
-  width: 86px;
-  height: 86px;
-  margin: 0 auto 18px;
+  width: 56px;
+  height: 56px;
+  margin: 0 auto 16px;
   border-radius: 50%;
   display: grid;
   place-items: center;
-  background: linear-gradient(135deg, var(--color-accent) 0%, var(--color-cta) 100%);
-  color: var(--color-button-text);
-  box-shadow: 0 4px 12px color-mix(in srgb, var(--color-card-shadow) 70%, transparent);
-}
-
-.servicioIcon svg {
-  width: 38px;
-  height: 38px;
+  background: var(--color-cta);
+  color: #fff;
+  box-shadow: 0 6px 14px color-mix(in srgb, var(--color-cta) 35%, transparent);
 }
 
 .servicioLabel {
-  display: block;
-  margin-top: 10px;
-  font-weight: 700;
+  margin: 0;
+  font-family: inherit;
+  font-weight: 800;
   color: var(--color-text);
-  font-size: 1rem;
-  text-transform: capitalize;
+  font-size: 1.15rem;
+  line-height: 1.3;
+}
+
+.servicioDescripcion {
+  margin: 8px auto 0;
+  max-width: 30ch;
+  color: var(--color-text-muted);
+  font-size: 0.88rem;
+  line-height: 1.6;
 }
 
 .serviciosAction {
-  text-align: center;
-  margin-top: 36px;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 44px;
 }
 
-.serviciosAction button {
-  font-family: inherit;
-  font-size: 1rem;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  padding: 14px 30px;
-  border-radius: 14px;
-  border: none;
+.serviciosReservar {
+  align-items: center;
   background: var(--color-cta);
-  color: var(--color-button-text);
-  cursor: pointer;
-  width: auto;
+  border-radius: 10px;
+  box-shadow: 0 10px 22px color-mix(in srgb, var(--color-cta) 30%, transparent);
+  color: #fff;
+  display: inline-flex;
+  font-size: 0.95rem;
+  font-weight: 800;
+  gap: 10px;
+  letter-spacing: 0.06em;
+  padding: 13px 28px;
+  text-decoration: none;
+  text-transform: uppercase;
   transition: transform 0.25s ease, background 0.25s ease, box-shadow 0.25s ease;
 }
 
-.serviciosAction button:hover {
-  background: var(--color-accent-soft);
+.serviciosReservar:hover {
+  background: var(--color-accent);
   transform: translateY(-2px);
-  box-shadow: 0 18px 32px rgba(0, 0, 0, 0.18);
+  box-shadow: 0 14px 28px var(--color-card-shadow);
+}
+
+.serviciosReservar:focus-visible {
+  outline: 3px solid var(--color-accent-soft);
+  outline-offset: 3px;
+}
+
+.serviciosAction small {
+  color: var(--color-text-muted);
+  font-size: 0.78rem;
 }
 
 @media (max-width: 960px) {
   .serviciosGrid {
-    grid-template-columns: repeat(2, minmax(220px, 1fr));
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 
 @media (max-width: 720px) {
+  .serviciosSection {
+    padding: 40px 16px;
+  }
   .serviciosCard {
-    padding: 32px 20px;
+    padding: 36px 18px 32px;
+    border-radius: 24px;
   }
   .serviciosGrid {
     grid-template-columns: 1fr;
+    gap: 16px;
   }
 }

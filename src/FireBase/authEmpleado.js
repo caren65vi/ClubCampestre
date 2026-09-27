@@ -1,7 +1,8 @@
 const API_URL = "http://localhost:8080/api/auth";
 const EMPLOYEE_SESSION_KEY = "employeeSession";
 
-export const loginEmpleado = async (nombreUsuario, contrasena) => {
+// recordar = true guarda la sesión en localStorage; false solo en sessionStorage (se borra al cerrar el navegador)
+export const loginEmpleado = async (nombreUsuario, contrasena, recordar = true) => {
   try {
     const response = await fetch(`${API_URL}/login`, {
       method: "POST",
@@ -18,7 +19,8 @@ export const loginEmpleado = async (nombreUsuario, contrasena) => {
       throw error;
     }
 
-    localStorage.setItem(EMPLOYEE_SESSION_KEY, JSON.stringify(data));
+    logoutEmpleado();
+    (recordar ? localStorage : sessionStorage).setItem(EMPLOYEE_SESSION_KEY, JSON.stringify(data));
     return data; // { idUsuario, nombreUsuario, rol, token }
   } catch (error) {
     if (error?.isEmpleadoAuthError) {
@@ -31,10 +33,26 @@ export const loginEmpleado = async (nombreUsuario, contrasena) => {
   }
 };
 
+// El JWT trae la fecha de vencimiento (exp, en segundos) en su parte central
+const tokenVencido = (token) => {
+  try {
+    const payload = JSON.parse(atob(token.split(".")[1].replace(/-/g, "+").replace(/_/g, "/")));
+    return typeof payload.exp === "number" && payload.exp * 1000 <= Date.now();
+  } catch {
+    return true;
+  }
+};
+
 export const getEmployeeSession = () => {
   try {
-    const session = JSON.parse(localStorage.getItem(EMPLOYEE_SESSION_KEY));
-    return session?.token ? session : null;
+    const guardada = localStorage.getItem(EMPLOYEE_SESSION_KEY) ?? sessionStorage.getItem(EMPLOYEE_SESSION_KEY);
+    const session = JSON.parse(guardada);
+    if (!session?.token) return null;
+    if (tokenVencido(session.token)) {
+      logoutEmpleado();
+      return null;
+    }
+    return session;
   } catch {
     return null;
   }
@@ -42,4 +60,5 @@ export const getEmployeeSession = () => {
 
 export const logoutEmpleado = () => {
   localStorage.removeItem(EMPLOYEE_SESSION_KEY);
+  sessionStorage.removeItem(EMPLOYEE_SESSION_KEY);
 };

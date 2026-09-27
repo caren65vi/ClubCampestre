@@ -9,6 +9,9 @@ import {
   signOut,
   onAuthStateChanged,
   sendPasswordResetEmail,
+  setPersistence,
+  browserLocalPersistence,
+  browserSessionPersistence,
 } from "firebase/auth";
 import { collection, doc, getDoc, getDocs, limit, query, setDoc, where } from "firebase/firestore";
 
@@ -106,6 +109,10 @@ export const register = async (email, password, nombre) => {
   await setDoc(doc(db, "usuarios", res.user.uid), userData);
   return { user: res.user, userData };
 };
+
+// "Recordar en este equipo": sesión permanente o solo mientras la pestaña esté abierta
+export const setRecordarSesion = (recordar) =>
+  setPersistence(auth, recordar ? browserLocalPersistence : browserSessionPersistence);
 
 export const doSignOut  = async () => { await signOut(auth); };
 export const resetPassword = async (email) => { await sendPasswordResetEmail(auth, email); };

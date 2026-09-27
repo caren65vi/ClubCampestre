@@ -2,7 +2,8 @@
 	background: var(--color-surface);
 	display: flex;
 	min-height: 100vh;
-	overflow: hidden;
+	/* clip (no hidden) para que el menú lateral pueda quedarse fijo con position: sticky */
+	overflow-x: clip;
 	width: 100%;
 }
 

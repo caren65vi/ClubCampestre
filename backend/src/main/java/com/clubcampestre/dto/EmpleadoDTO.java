@@ -15,6 +15,10 @@ import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
 
+/**
+ * Objeto de transferencia (DTO) de un empleado entre el frontend y la API.
+ * Las anotaciones de Jakarta Validation definen los campos obligatorios y sus formatos.
+ */
 @Getter
 @Setter
 public class EmpleadoDTO {

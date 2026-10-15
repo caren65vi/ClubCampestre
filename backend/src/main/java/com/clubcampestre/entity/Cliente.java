@@ -12,6 +12,7 @@ import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
 
+/** Entidad JPA de la tabla cliente: huéspedes y visitantes del club. */
 @Entity
 @Table(name = "cliente")
 @Getter

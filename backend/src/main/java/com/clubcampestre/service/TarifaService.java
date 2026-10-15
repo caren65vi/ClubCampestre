@@ -14,6 +14,7 @@ import com.clubcampestre.exception.SolicitudInvalidaException;
 import com.clubcampestre.repository.TarifaRepository;
 import com.clubcampestre.repository.TemporadaRepository;
 
+/** Lógica de negocio de tarifas. */
 @Service
 public class TarifaService {
 

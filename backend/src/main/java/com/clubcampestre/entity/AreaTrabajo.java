@@ -12,6 +12,7 @@ import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
 
+/** Entidad JPA de la tabla area_trabajo: áreas funcionales del club (recepción, cocina, bar...). */
 @Entity
 @Table(name = "area_trabajo")
 @Getter

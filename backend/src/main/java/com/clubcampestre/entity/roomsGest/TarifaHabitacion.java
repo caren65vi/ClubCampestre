@@ -12,6 +12,7 @@ import lombok.Setter;
 
 import com.clubcampestre.entity.Tarifa;
 
+/** Entidad JPA que guarda qué tarifa tiene una habitación desde cierta fecha. */
 @Entity
 @Table(name = "tarifa_habitacion")
 @Getter

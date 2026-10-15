@@ -8,6 +8,7 @@ import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 
+/** Datos de una tarifa de hospedaje. */
 @Getter
 @Setter
 public class TarifaDTO {

@@ -5,6 +5,7 @@ import org.springframework.stereotype.Repository;
 
 import com.clubcampestre.entity.Cargo;
 
+/** Repositorio JPA de cargos. */
 @Repository
 public interface CargoRepository extends JpaRepository<Cargo, Integer> {
 }

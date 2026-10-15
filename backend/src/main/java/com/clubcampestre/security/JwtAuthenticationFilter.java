@@ -14,6 +14,10 @@ import org.springframework.web.filter.OncePerRequestFilter;
 import java.io.IOException;
 import java.util.List;
 
+/**
+ * Filtro que se ejecuta en cada petición: lee el encabezado Authorization: Bearer,
+ * valida el token JWT y registra al usuario autenticado con su rol.
+ */
 @Component
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
@@ -23,6 +27,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         this.jwtUtil = jwtUtil;
     }
 
+    /** Si la petición trae un token válido, autentica al usuario; si no, la deja seguir sin autenticar. */
     @Override
     protected void doFilterInternal(HttpServletRequest request,
             HttpServletResponse response,

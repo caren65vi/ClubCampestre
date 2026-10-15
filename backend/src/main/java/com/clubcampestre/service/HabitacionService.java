@@ -23,6 +23,7 @@ import com.clubcampestre.repository.HabitacionRepository;
 import com.clubcampestre.repository.TipoHabitacionRepository;
 
 
+/** Lógica de negocio de habitaciones y sus características. */
 @Service
 public class HabitacionService {
 

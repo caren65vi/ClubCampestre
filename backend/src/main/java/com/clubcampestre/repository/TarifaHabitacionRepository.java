@@ -12,6 +12,7 @@ import org.springframework.stereotype.Repository;
 import com.clubcampestre.entity.roomsGest.TarifaHabitacion;
 import com.clubcampestre.entity.roomsGest.TarifaHabitacionId;
 
+/** Repositorio JPA de tarifas asignadas a habitaciones. */
 @Repository
 public interface TarifaHabitacionRepository extends JpaRepository<TarifaHabitacion, TarifaHabitacionId> {
 

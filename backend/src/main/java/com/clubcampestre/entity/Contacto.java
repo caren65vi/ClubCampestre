@@ -12,6 +12,7 @@ import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
 
+/** Entidad JPA de la tabla contacto: teléfonos y correos de empleados o clientes. */
 @Entity
 
 @Table(name = "contacto")

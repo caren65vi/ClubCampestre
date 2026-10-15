@@ -1,0 +1,834 @@
+{
+  "info": {
+    "name": "Villa Katy - API REST del proyecto",
+    "description": "Pruebas de la API del Club Campestre Villa Katy (GA7-220501096-AA5-EV03 y AA5-EV04).\nAntes de ejecutar: encender SQL Server y el backend (mvnw spring-boot:run).\nConfigure las variables usuario y contrasena con un usuario del sistema (no se guardan en el repositorio).",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{token}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:8080/api"
+    },
+    {
+      "key": "usuario",
+      "value": ""
+    },
+    {
+      "key": "contrasena",
+      "value": ""
+    },
+    {
+      "key": "token",
+      "value": ""
+    },
+    {
+      "key": "docPrueba",
+      "value": ""
+    },
+    {
+      "key": "idCargoPrueba",
+      "value": "1"
+    },
+    {
+      "key": "idTemporada",
+      "value": ""
+    }
+  ],
+  "item": [
+    {
+      "name": "1. Autenticación",
+      "item": [
+        {
+          "name": "Login correcto",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/auth/login",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"nombreUsuario\": \"{{usuario}}\",\n    \"contrasena\": \"{{contrasena}}\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "auth": {
+              "type": "noauth"
+            },
+            "description": "Inicia sesión con un usuario del sistema. Guarda el token JWT en la variable token de la colección."
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Código 200 OK', () => pm.response.to.have.status(200));",
+                  "const r = pm.response.json();",
+                  "pm.test('Devuelve un token JWT', () => pm.expect(r.token.split('.')).to.have.lengthOf(3));",
+                  "pm.test('Devuelve el rol', () => pm.expect(r.rol).to.be.a('string').and.not.empty);",
+                  "pm.collectionVariables.set('token', r.token);"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Login con contraseña incorrecta",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/auth/login",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"nombreUsuario\": \"{{usuario}}\",\n    \"contrasena\": \"ClaveIncorrecta1\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "auth": {
+              "type": "noauth"
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Código 401 Unauthorized', () => pm.response.to.have.status(401));",
+                  "pm.test('Mensaje de error', () => pm.expect(pm.response.json().error).to.eql('Usuario o contraseña incorrectos'));"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Acceso sin token",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/empleados",
+            "auth": {
+              "type": "noauth"
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Rechaza la petición sin token (403)', () => pm.response.to.have.status(403));"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "2. Catálogos",
+      "item": [
+        {
+          "name": "Listar tipos de documento",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/tipos-documento"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Código 200 OK', () => pm.response.to.have.status(200));",
+                  "pm.test('Incluye CC', () => pm.expect(pm.response.json().map(t => t.nombreTipoDocumento)).to.include('CC'));"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Listar tipos de contacto",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/tipos-contacto"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Código 200 OK', () => pm.response.to.have.status(200));",
+                  "pm.test('Lista no vacía', () => pm.expect(pm.response.json()).to.not.be.empty);"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Listar cargos",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/cargos"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Código 200 OK', () => pm.response.to.have.status(200));",
+                  "const cargos = pm.response.json();",
+                  "pm.test('Cada cargo trae su área', () => cargos.forEach(c => pm.expect(c.nombreArea).to.be.a('string')));",
+                  "const recepcion = cargos.find(c => c.nombreCargo === 'Recepcionista') || cargos[0];",
+                  "pm.collectionVariables.set('idCargoPrueba', recepcion.idCargo);"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Listar roles",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/roles"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Código 200 OK', () => pm.response.to.have.status(200));"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "3. Empleados (CRUD)",
+      "item": [
+        {
+          "name": "Listar empleados",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/empleados"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Código 200 OK', () => pm.response.to.have.status(200));",
+                  "pm.test('Devuelve un arreglo', () => pm.expect(pm.response.json()).to.be.an('array'));"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Registrar empleado",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/empleados",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"numeroDocumento\": \"{{docPrueba}}\",\n    \"idTipoDocumento\": 1,\n    \"primerNombre\": \"Valentina\",\n    \"segundoNombre\": \"Sofía\",\n    \"primerApellido\": \"Herrera\",\n    \"segundoApellido\": \"Cano\",\n    \"telefono\": \"3001112233\",\n    \"indicativo\": \"+57\",\n    \"correo\": \"valentina.herrera@villakaty.com\",\n    \"idCargo\": {{idCargoPrueba}},\n    \"fechaContratacion\": \"2026-10-01\",\n    \"salario\": 1750905,\n    \"crearUsuario\": false\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "// Documento único por ejecución para poder repetir las pruebas",
+                  "pm.collectionVariables.set('docPrueba', '7' + Date.now().toString().slice(-9));"
+                ]
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Código 200 OK', () => pm.response.to.have.status(200));",
+                  "const e = pm.response.json();",
+                  "pm.test('Queda activo', () => pm.expect(e.estado).to.eql('activo'));",
+                  "pm.test('Guarda celular y correo', () => { pm.expect(e.telefono).to.eql('3001112233'); pm.expect(e.correo).to.include('@'); });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Registrar documento duplicado",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/empleados",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"numeroDocumento\": \"{{docPrueba}}\",\n    \"idTipoDocumento\": 1,\n    \"primerNombre\": \"Valentina\",\n    \"segundoNombre\": \"Sofía\",\n    \"primerApellido\": \"Herrera\",\n    \"segundoApellido\": \"Cano\",\n    \"telefono\": \"3001112233\",\n    \"indicativo\": \"+57\",\n    \"correo\": \"valentina.herrera@villakaty.com\",\n    \"idCargo\": {{idCargoPrueba}},\n    \"fechaContratacion\": \"2026-10-01\",\n    \"salario\": 1750905,\n    \"crearUsuario\": false\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Código 409 Conflict', () => pm.response.to.have.status(409));",
+                  "pm.test('Mensaje de duplicado', () => pm.expect(pm.response.json().error).to.include('Ya existe un empleado'));"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Registrar con datos inválidos",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/empleados",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"numeroDocumento\": \"\",\n    \"idTipoDocumento\": 1,\n    \"primerNombre\": \"\",\n    \"primerApellido\": \"Herrera\",\n    \"correo\": \"correo-invalido\",\n    \"idCargo\": 1,\n    \"fechaContratacion\": \"2026-10-01\",\n    \"salario\": -10\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Código 400 Bad Request', () => pm.response.to.have.status(400));",
+                  "pm.test('Indica el error', () => pm.expect(pm.response.json().error).to.be.a('string'));"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Consultar empleado por documento",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/empleados/{{docPrueba}}"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Código 200 OK', () => pm.response.to.have.status(200));",
+                  "pm.test('Es el empleado registrado', () => pm.expect(pm.response.json().primerNombre).to.eql('Valentina'));"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Consultar empleado inexistente",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/empleados/000000"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Código 404 Not Found', () => pm.response.to.have.status(404));",
+                  "pm.test('Mensaje', () => pm.expect(pm.response.json().error).to.eql('Empleado no encontrado'));"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Buscar con filtros (nombre y estado)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/empleados?nombre=Valentina&estado=activo"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Código 200 OK', () => pm.response.to.have.status(200));",
+                  "pm.test('Todos coinciden con el filtro', () => pm.response.json().forEach(e => pm.expect(e.estado).to.eql('activo')));"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Filtro con estado inválido",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/empleados?estado=despedido"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Código 400 Bad Request', () => pm.response.to.have.status(400));"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Actualizar empleado",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/empleados/{{docPrueba}}",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"numeroDocumento\": \"{{docPrueba}}\",\n    \"idTipoDocumento\": 1,\n    \"primerNombre\": \"Valentina\",\n    \"segundoNombre\": \"Sofía\",\n    \"primerApellido\": \"Herrera\",\n    \"segundoApellido\": \"Cano\",\n    \"telefono\": \"3014445566\",\n    \"indicativo\": \"+57\",\n    \"correo\": \"valentina.h@villakaty.com\",\n    \"idCargo\": {{idCargoPrueba}},\n    \"fechaContratacion\": \"2026-10-01\",\n    \"salario\": 1800000,\n    \"crearUsuario\": false\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Código 200 OK', () => pm.response.to.have.status(200));",
+                  "const e = pm.response.json();",
+                  "pm.test('Teléfono actualizado', () => pm.expect(e.telefono).to.eql('3014445566'));",
+                  "pm.test('Salario actualizado', () => pm.expect(Number(e.salario)).to.eql(1800000));"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Cambiar estado a vacaciones",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/empleados/{{docPrueba}}/estado",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"estado\": \"vacaciones\",\n    \"fechaEfectiva\": \"2026-10-14\",\n    \"motivo\": \"Vacaciones programadas - prueba Postman\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Código 200 OK', () => pm.response.to.have.status(200));",
+                  "pm.test('Estado vacaciones', () => pm.expect(pm.response.json().estado).to.eql('vacaciones'));"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Cambiar estado inválido",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/empleados/{{docPrueba}}/estado",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"estado\": \"despedido\",\n    \"fechaEfectiva\": \"2026-10-14\",\n    \"motivo\": \"Prueba\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Código 400 Bad Request', () => pm.response.to.have.status(400));"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Cambiar estado con fecha anterior al ingreso",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/empleados/{{docPrueba}}/estado",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"estado\": \"activo\",\n    \"fechaEfectiva\": \"2020-01-01\",\n    \"motivo\": \"Prueba de fecha\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Código 400 Bad Request', () => pm.response.to.have.status(400));",
+                  "pm.test('Mensaje de fecha', () => pm.expect(pm.response.json().error).to.include('fecha efectiva'));"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Consultar bitácora del empleado",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/empleados/{{docPrueba}}/historial"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Código 200 OK', () => pm.response.to.have.status(200));",
+                  "pm.test('Tiene registro inicial, edición y cambio de estado', () => pm.expect(pm.response.json().length).to.be.at.least(3));"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Dar de baja (eliminar)",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": "{{baseUrl}}/empleados/{{docPrueba}}"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Código 200 OK', () => pm.response.to.have.status(200));",
+                  "pm.test('Queda inactivo', () => pm.expect(pm.response.json().estado).to.eql('inactivo'));"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "4. Temporadas y tarifas",
+      "item": [
+        {
+          "name": "Crear temporada",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/temporadas",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"nombreTemporada\": \"Temporada de fin de año\",\n    \"tipoTemporada\": \"Alta\",\n    \"fechaInicio\": \"2026-12-15\",\n    \"fechaFin\": \"2027-01-15\",\n    \"descripcion\": \"Vacaciones de diciembre y enero\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Código 200 OK', () => pm.response.to.have.status(200));",
+                  "const t = pm.response.json();",
+                  "pm.collectionVariables.set('idTemporada', t.idTemporada);",
+                  "pm.test('Tipo Alta', () => pm.expect(t.tipoTemporada).to.eql('Alta'));"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Crear temporada con fechas invertidas",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/temporadas",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"nombreTemporada\": \"Error\",\n    \"tipoTemporada\": \"Baja\",\n    \"fechaInicio\": \"2026-12-15\",\n    \"fechaFin\": \"2026-12-01\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Código 400 Bad Request', () => pm.response.to.have.status(400));"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Listar temporadas",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/temporadas"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Código 200 OK', () => pm.response.to.have.status(200));"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Crear tarifa",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/tarifas",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"valor\": 350000,\n    \"fechaVigencia\": \"2026-12-15\",\n    \"idTemporada\": {{idTemporada}}\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Código 200 OK', () => pm.response.to.have.status(200));",
+                  "pm.test('Asociada a la temporada', () => pm.expect(pm.response.json().idTemporada).to.eql(pm.collectionVariables.get('idTemporada')));"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Crear tarifa con valor negativo",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/tarifas",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"valor\": -1,\n    \"fechaVigencia\": \"2026-12-15\",\n    \"idTemporada\": {{idTemporada}}\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Código 400 Bad Request', () => pm.response.to.have.status(400));"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Listar tarifas",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/tarifas"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Código 200 OK', () => pm.response.to.have.status(200));"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Listar habitaciones",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/habitaciones"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Código 200 OK', () => pm.response.to.have.status(200));"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

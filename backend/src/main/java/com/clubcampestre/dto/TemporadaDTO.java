@@ -8,6 +8,7 @@ import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
 
+/** Datos de una temporada con su rango de fechas. */
 @Getter
 @Setter
 public class TemporadaDTO {

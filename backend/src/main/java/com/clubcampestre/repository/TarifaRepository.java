@@ -5,6 +5,7 @@ import org.springframework.stereotype.Repository;
 
 import com.clubcampestre.entity.Tarifa;
 
+/** Repositorio JPA de tarifas. */
 @Repository
 public interface TarifaRepository extends JpaRepository<Tarifa, Integer> {
 }

@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 import javax.crypto.SecretKey;
 import java.util.Date;
 
+/** Genera y valida los tokens JWT firmados con la clave JWT_SECRET. */
 @Component
 public class JwtUtil {
 
@@ -19,6 +20,7 @@ public class JwtUtil {
         this.secretKey = Keys.hmacShaKeyFor(secret.getBytes());
     }
 
+    /** Crea un token JWT con el usuario, su rol y su id, firmado con HMAC-SHA. */
     public String generarToken(String nombreUsuario, String rol, Integer idUsuario) {
         return Jwts.builder()
                 .subject(nombreUsuario)
@@ -30,6 +32,7 @@ public class JwtUtil {
                 .compact();
     }
 
+    /** Verifica la firma y la vigencia del token y devuelve sus datos (claims). */
     public Claims validarYObtenerClaims(String token) {
         return Jwts.parser()
                 .verifyWith(secretKey)

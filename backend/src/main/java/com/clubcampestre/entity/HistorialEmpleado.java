@@ -15,6 +15,7 @@ import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
 
+/** Entidad JPA de la tabla historial_empleado: bitácora de auditoría de cada empleado. */
 @Entity
 @Table(name = "historial_empleado")
 @Getter

@@ -9,6 +9,10 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+/**
+ * Configuración de Spring Security: API sin sesión (stateless) protegida con tokens JWT.
+ * Solo /api/auth/** es público; el resto de rutas exige un token válido.
+ */
 @Configuration
 public class WebSecurityConfig {
 
@@ -18,6 +22,7 @@ public class WebSecurityConfig {
         this.jwtAuthenticationFilter = jwtAuthenticationFilter;
     }
 
+    /** Define qué rutas son públicas y agrega el filtro JWT antes del filtro de usuario y contraseña. */
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http

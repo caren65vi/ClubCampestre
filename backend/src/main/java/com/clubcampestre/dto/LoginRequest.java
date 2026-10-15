@@ -1,5 +1,6 @@
 package com.clubcampestre.dto;
 
+/** Credenciales que envía el colaborador para iniciar sesión. */
 public class LoginRequest {
 
     private String nombreUsuario;

@@ -13,6 +13,7 @@ import com.clubcampestre.exception.RecursoNoEncontradoException;
 import com.clubcampestre.exception.SolicitudInvalidaException;
 import com.clubcampestre.repository.TemporadaRepository;
 
+/** Lógica de negocio de temporadas (valida que la fecha fin no sea anterior a la de inicio). */
 @Service
 public class TemporadaService {
 

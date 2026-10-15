@@ -5,6 +5,7 @@ import org.springframework.stereotype.Repository;
 
 import com.clubcampestre.entity.RolUsuario;
 
+/** Repositorio JPA de roles. */
 @Repository
 public interface RolUsuarioRepository extends JpaRepository<RolUsuario, Integer> {
 }

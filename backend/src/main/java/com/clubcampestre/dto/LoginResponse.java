@@ -1,5 +1,6 @@
 package com.clubcampestre.dto;
 
+/** Respuesta de un inicio de sesión exitoso: datos del usuario, rol y token JWT. */
 public class LoginResponse {
     private Integer idUsuario;
     private String nombreUsuario;

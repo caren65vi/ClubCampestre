@@ -6,6 +6,7 @@ import java.util.Objects;
 
 import jakarta.persistence.Embeddable;
 
+/** Llave primaria compuesta de TarifaHabitacion. */
 @Embeddable
 public class TarifaHabitacionId implements Serializable {
 

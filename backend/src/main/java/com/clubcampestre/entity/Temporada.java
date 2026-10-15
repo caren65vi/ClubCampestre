@@ -11,6 +11,7 @@ import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
 
+/** Entidad JPA de la tabla temporada: periodos con fecha de inicio y fin. */
 @Entity
 @Table(name = "temporada")
 @Getter

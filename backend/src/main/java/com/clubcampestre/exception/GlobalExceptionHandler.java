@@ -8,9 +8,14 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+/**
+ * Manejador global de errores: convierte las excepciones en respuestas JSON
+ * con el código HTTP adecuado y el campo "error".
+ */
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
+    /** Credenciales inválidas → 401 Unauthorized. */
     @ExceptionHandler(CredencialesInvalidasException.class)
     public ResponseEntity<Map<String, String>> manejarCredenciales(CredencialesInvalidasException ex) {
         return ResponseEntity
@@ -18,6 +23,7 @@ public class GlobalExceptionHandler {
                 .body(Map.of("error", ex.getMessage()));
     }
 
+    /** Registro duplicado → 409 Conflict. */
     @ExceptionHandler(RecursoDuplicadoException.class)
     public ResponseEntity<Map<String, String>> manejarDuplicado(RecursoDuplicadoException ex) {
         return ResponseEntity
@@ -25,6 +31,7 @@ public class GlobalExceptionHandler {
                 .body(Map.of("error", ex.getMessage()));
     }
 
+    /** Registro inexistente → 404 Not Found. */
     @ExceptionHandler(RecursoNoEncontradoException.class)
     public ResponseEntity<Map<String, String>> manejarNoEncontrado(RecursoNoEncontradoException ex) {
         return ResponseEntity
@@ -32,6 +39,7 @@ public class GlobalExceptionHandler {
                 .body(Map.of("error", ex.getMessage()));
     }
 
+    /** Regla de negocio incumplida → 400 Bad Request. */
     @ExceptionHandler(SolicitudInvalidaException.class)
     public ResponseEntity<Map<String, String>> manejarSolicitudInvalida(SolicitudInvalidaException ex) {
         return ResponseEntity
@@ -39,6 +47,7 @@ public class GlobalExceptionHandler {
                 .body(Map.of("error", ex.getMessage()));
     }
 
+    /** Falla de las anotaciones @Valid → 400 con el primer mensaje de error. */
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<Map<String, String>> manejarValidacion(MethodArgumentNotValidException ex) {
         String mensaje = ex.getBindingResult().getFieldErrors().stream()

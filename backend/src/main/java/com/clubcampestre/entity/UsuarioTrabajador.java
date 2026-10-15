@@ -12,6 +12,7 @@ import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
 
+/** Entidad JPA de la tabla usuario: cuenta de acceso de un empleado (contraseña en BCrypt). */
 @Entity
 @Table(name = "usuario")
 @Getter

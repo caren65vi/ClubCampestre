@@ -5,6 +5,7 @@ import java.util.Objects;
 
 import jakarta.persistence.Embeddable;
 
+/** Llave primaria compuesta de HabitacionCaracteristica. */
 @Embeddable
 public class HabitacionCaracteristicaId implements Serializable {
 

@@ -9,6 +9,7 @@ import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
 
+/** Entidad JPA de la tabla tipo_documento: catálogo de documentos de identidad. */
 @Entity
 @Table(name = "tipo_documento")
 @Getter

@@ -5,6 +5,7 @@ import java.math.BigDecimal;
 import lombok.Getter;
 import lombok.Setter;
 
+/** Datos de un cargo con su área de trabajo, tal como se envían al frontend. */
 @Getter
 @Setter
 public class CargoDTO {

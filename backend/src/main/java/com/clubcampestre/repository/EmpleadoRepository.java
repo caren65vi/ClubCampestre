@@ -9,6 +9,10 @@ import org.springframework.stereotype.Repository;
 
 import com.clubcampestre.entity.Empleado;
 
+/**
+ * Repositorio JPA de empleados. Spring Data genera las consultas CRUD;
+ * la búsqueda con filtros se define con JPQL.
+ */
 @Repository
 public interface EmpleadoRepository extends JpaRepository<Empleado, String> {
 

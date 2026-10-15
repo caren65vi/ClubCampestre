@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 
 import com.clubcampestre.entity.HistorialEmpleado;
 
+/** Repositorio JPA de la bitácora de empleados. */
 @Repository
 public interface HistorialEmpleadoRepository extends JpaRepository<HistorialEmpleado, Integer> {
 

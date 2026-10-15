@@ -10,6 +10,7 @@ import com.clubcampestre.dto.TipoDocumentoDTO;
 import com.clubcampestre.entity.TipoDocumento;
 import com.clubcampestre.repository.TipoDocumentoRepository;
 
+/** Lógica de negocio del catálogo de tipos de documento. */
 @Service
 public class TipoDocumentoService {
 

@@ -41,6 +41,11 @@ import com.clubcampestre.repository.TipoContactoRepository;
 import com.clubcampestre.repository.TipoDocumentoRepository;
 import com.clubcampestre.repository.UsuarioTrabajadorRepository;
 
+/**
+ * Lógica de negocio del módulo Gestión de Empleados (RF-0110 a RF-0114).
+ * Valida los datos, evita documentos duplicados, guarda los contactos principales,
+ * crea el usuario de acceso cuando se solicita y registra cada cambio en la bitácora.
+ */
 @Service
 public class EmpleadoService {
 
@@ -68,6 +73,7 @@ public class EmpleadoService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+    /** Convierte la entidad en DTO, incluyendo cargo, área, celular y correo principal. */
     private EmpleadoDTO convertirADTO(Empleado e) {
         EmpleadoDTO dto = new EmpleadoDTO();
         dto.setNumeroDocumento(e.getIdEmpleado());
@@ -95,6 +101,7 @@ public class EmpleadoService {
         return dto;
     }
 
+    /** Busca el contacto principal del empleado según el tipo (Celular o Correo electrónico). */
     private Optional<Contacto> buscarContacto(Empleado empleado, String nombreTipo) {
         return tipoContactoRepository.findByNombreTipoContactoIgnoreCase(nombreTipo)
                 .flatMap(tc -> contactoRepository.findByEmpleado_IdEmpleadoAndTipoContacto_IdTipoContacto(
@@ -123,6 +130,7 @@ public class EmpleadoService {
         contactoRepository.save(contacto);
     }
 
+    /** Guarda los contactos adicionales (por ejemplo, de emergencia) del empleado. */
     private void guardarContactosAdicionales(Empleado empleado, List<ContactoDTO> contactos) {
         if (contactos == null) {
             return;
@@ -139,11 +147,12 @@ public class EmpleadoService {
         }
     }
 
-    // RF-0062
+    /** RF-0112: devuelve todos los empleados. */
     public List<EmpleadoDTO> listarTodos() {
         return empleadoRepository.findAll().stream().map(this::convertirADTO).collect(Collectors.toList());
     }
 
+    /** RF-0112: busca por nombre, área y/o estado; lanza 404 si no hay coincidencias. */
     public List<EmpleadoDTO> buscarConFiltros(String nombre, Integer idArea, String estado) {
         if (estado != null && !ESTADOS_VALIDOS.contains(estado)) {
             throw new SolicitudInvalidaException("Estado de filtro inválido. Valores permitidos: " + ESTADOS_VALIDOS);
@@ -156,9 +165,14 @@ public class EmpleadoService {
         return resultado;
     }
 
+    /** RF-0112: consulta un empleado por número de documento. */
     public EmpleadoDTO buscarPorId(String numeroDocumento) {
         return convertirADTO(obtenerOLanzarError(numeroDocumento));
     }
+    /**
+     * RF-0111: registra un empleado activo. Exige celular y correo, rechaza documentos duplicados,
+     * guarda sus contactos, crea su usuario si se pidió y deja el registro inicial en la bitácora.
+     */
     @Transactional
     public EmpleadoDTO registrarEmpleadoAdministrador(EmpleadoDTO dto) {
         if (dto.getTelefono() == null || dto.getTelefono().isBlank()) {
@@ -200,6 +214,7 @@ public class EmpleadoService {
         return convertirADTO(guardado);
     }
 
+    /** Crea el usuario de acceso del empleado: valida rol, usuario único y contraseña segura (BCrypt). */
     private void crearUsuario(Empleado empleado, EmpleadoDTO dto) {
         if (dto.getIdRol() == null) {
             throw new SolicitudInvalidaException("El rol es obligatorio");
@@ -229,6 +244,7 @@ public class EmpleadoService {
         usuarioRepository.save(usuario);
     }
 
+    /** RF-0113: actualiza los datos del empleado (el documento no cambia) y registra en la bitácora qué se modificó. */
     @Transactional
     public EmpleadoDTO modificarEmpleadoAdministrador(String numeroDocumento, EmpleadoDTO dto) {
         Empleado e = obtenerOLanzarError(numeroDocumento);
@@ -296,6 +312,7 @@ public class EmpleadoService {
         return cambios;
     }
 
+    /** Baja lógica: cambia el empleado a inactivo en lugar de borrarlo, para conservar su historial. */
     @Transactional
     public EmpleadoDTO eliminarEmpleadoAdministrador(String numeroDocumento) {
         Empleado e = obtenerOLanzarError(numeroDocumento);
@@ -305,6 +322,10 @@ public class EmpleadoService {
         return aplicarCambioEstado(e, "inactivo", LocalDate.now(), "Baja desde gestión de empleados");
     }
 
+    /**
+     * RF-0114: cambia el estado. Valida el estado, que sea distinto al actual y que la fecha
+     * efectiva no sea anterior a la fecha de ingreso.
+     */
     @Transactional
     public EmpleadoDTO cambiarEstado(String numeroDocumento, CambioEstadoDTO dto) {
         String nuevoEstado = dto.getEstado() == null ? null : dto.getEstado().trim().toLowerCase();
@@ -321,6 +342,7 @@ public class EmpleadoService {
         return aplicarCambioEstado(e, nuevoEstado, dto.getFechaEfectiva(), dto.getMotivo().trim());
     }
 
+    /** Guarda el nuevo estado con su fecha y lo registra en la bitácora. */
     private EmpleadoDTO aplicarCambioEstado(Empleado e, String nuevoEstado, LocalDate fechaEfectiva, String motivo) {
         String estadoAnterior = e.getEstado();
         e.setEstado(nuevoEstado);
@@ -330,6 +352,7 @@ public class EmpleadoService {
         return convertirADTO(guardado);
     }
 
+    /** Devuelve la bitácora del empleado, del cambio más reciente al más antiguo. */
     @Transactional(readOnly = true)
     public List<HistorialEmpleadoDTO> listarHistorial(String numeroDocumento) {
         obtenerOLanzarError(numeroDocumento);
@@ -337,6 +360,7 @@ public class EmpleadoService {
                 .stream().map(this::convertirHistorialADTO).collect(Collectors.toList());
     }
 
+    /** Agrega un registro a la bitácora con el usuario autenticado como responsable. */
     private void registrarHistorial(Empleado empleado, String tipoEvento, String estadoAnterior,
             String estadoNuevo, LocalDate fechaEfectiva, String motivo) {
         HistorialEmpleado h = new HistorialEmpleado();
@@ -351,6 +375,7 @@ public class EmpleadoService {
         historialRepository.save(h);
     }
 
+    /** Convierte un registro de la bitácora en DTO con el nombre y cargo del responsable. */
     private HistorialEmpleadoDTO convertirHistorialADTO(HistorialEmpleado h) {
         HistorialEmpleadoDTO dto = new HistorialEmpleadoDTO();
         dto.setIdHistorial(h.getIdHistorial());
@@ -381,6 +406,7 @@ public class EmpleadoService {
         return "anonymousUser".equals(nombreUsuario) ? null : nombreUsuario;
     }
 
+    /** Busca el empleado o lanza RecursoNoEncontradoException (404). */
     private Empleado obtenerOLanzarError(String numeroDocumento) {
         return empleadoRepository.findById(numeroDocumento)
                 .orElseThrow(() -> new RecursoNoEncontradoException("Empleado no encontrado"));

@@ -10,6 +10,7 @@ import com.clubcampestre.service.TarifaService;
 
 import jakarta.validation.Valid;
 
+/** Controlador REST de tarifas de hospedaje (/api/tarifas). */
 @RestController
 @RequestMapping("/api/tarifas")
 public class TarifaController {
@@ -17,16 +18,19 @@ public class TarifaController {
     @Autowired
     private TarifaService tarifaService;
 
+    /** GET /api/tarifas - Lista las tarifas. */
     @GetMapping
     public List<TarifaDTO> listar() {
         return tarifaService.listarTodas();
     }
 
+    /** GET /api/tarifas/{id} - Consulta una tarifa. */
     @GetMapping("/{id}")
     public TarifaDTO buscar(@PathVariable Integer id) {
         return tarifaService.buscarPorId(id);
     }
 
+    /** POST /api/tarifas - Crea una tarifa. */
     @PostMapping
     public TarifaDTO crear(@Valid @RequestBody TarifaDTO dto) {
         return tarifaService.crear(dto);

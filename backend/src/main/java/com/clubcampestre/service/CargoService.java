@@ -11,6 +11,7 @@ import com.clubcampestre.dto.CargoDTO;
 import com.clubcampestre.entity.Cargo;
 import com.clubcampestre.repository.CargoRepository;
 
+/** Lógica de negocio del catálogo de cargos. */
 @Service
 public class CargoService {
 

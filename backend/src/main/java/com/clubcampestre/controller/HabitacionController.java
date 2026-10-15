@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.clubcampestre.dto.HabitacionDTO;
 import com.clubcampestre.service.HabitacionService;
 
+/** Controlador REST de habitaciones del club (/api/habitaciones). */
 @RestController
 @RequestMapping("/api/habitaciones")
 
@@ -25,31 +26,37 @@ public class HabitacionController {
     @Autowired
     private HabitacionService habitacionService;
 
+    /** GET /api/habitaciones - Lista las habitaciones. */
     @GetMapping
     public List<HabitacionDTO> listar() {
         return habitacionService.listarTodas();
     }
 
+    /** GET /api/habitaciones/{numero} - Consulta una habitación. */
     @GetMapping("/{numero}")
     public HabitacionDTO buscar(@PathVariable Integer numero) {
         return habitacionService.buscarPorId(numero);
     }
 
+    /** POST /api/habitaciones - Crea una habitación. */
     @PostMapping
     public HabitacionDTO crear(@RequestBody HabitacionDTO dto) {
         return habitacionService.crear(dto);
     }
 
+    /** PUT /api/habitaciones/{numero} - Actualiza una habitación. */
     @PutMapping("/{numero}")
     public HabitacionDTO actualizar(@PathVariable Integer numero, @RequestBody HabitacionDTO dto) {
         return habitacionService.actualizar(numero, dto);
     }
 
+    /** PATCH /api/habitaciones/{numero}/estado - Cambia el estado de la habitación. */
     @PatchMapping("/{numero}/estado")
     public HabitacionDTO cambiarEstado(@PathVariable Integer numero, @RequestBody Map<String, String> body) {
         return habitacionService.cambiarEstado(numero, body.get("estado"));
     }
 
+    /** DELETE /api/habitaciones/{numero} - Elimina (desactiva) una habitación. */
     @DeleteMapping("/{numero}")
     public void eliminar(@PathVariable Integer numero) {
         habitacionService.eliminar(numero);

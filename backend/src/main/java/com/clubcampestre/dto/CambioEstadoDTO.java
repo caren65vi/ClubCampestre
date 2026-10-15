@@ -8,6 +8,7 @@ import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
 
+/** Datos para cambiar el estado laboral de un empleado (activo, vacaciones o inactivo). */
 @Getter
 @Setter
 public class CambioEstadoDTO {

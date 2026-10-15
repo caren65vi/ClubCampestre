@@ -6,6 +6,7 @@ import java.time.LocalDateTime;
 import lombok.Getter;
 import lombok.Setter;
 
+/** Registro de la bitácora de un empleado (cambio de estado o edición de datos). */
 @Getter
 @Setter
 public class HistorialEmpleadoDTO {

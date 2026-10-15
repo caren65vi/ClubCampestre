@@ -18,6 +18,7 @@ import com.clubcampestre.repository.HabitacionRepository;
 import com.clubcampestre.repository.TarifaHabitacionRepository;
 import com.clubcampestre.repository.TarifaRepository;
 
+/** Lógica de negocio para asignar y consultar tarifas de habitaciones. */
 @Service
 public class TarifaHabitacionService {
 

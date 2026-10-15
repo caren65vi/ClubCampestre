@@ -13,6 +13,10 @@ import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
+/**
+ * Implementación del inicio de sesión: busca el usuario, compara la contraseña con BCrypt
+ * y, si es correcta, genera el token JWT con el rol del usuario.
+ */
 @Service
 public class AuthServiceImpl implements AuthService {
 
@@ -25,6 +29,7 @@ public class AuthServiceImpl implements AuthService {
     @Autowired
     private JwtUtil jwtUtil;
 
+    /** Inicia sesión; lanza CredencialesInvalidasException con el mismo mensaje si falla el usuario o la contraseña. */
     @Override
     public LoginResponse login(LoginRequest request) {
         Optional<UsuarioTrabajador> usuarioOpt

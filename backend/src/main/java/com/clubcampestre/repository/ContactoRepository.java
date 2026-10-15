@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 
 import com.clubcampestre.entity.Contacto;
 
+/** Repositorio JPA de contactos de empleados y clientes. */
 @Repository
 public interface ContactoRepository extends JpaRepository<Contacto, Integer> {
 

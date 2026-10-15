@@ -96,7 +96,7 @@ Solo se permiten peticiones desde `http://localhost:*` y `http://127.0.0.1:*` (c
 ### Pruebas
 
 ```bash
-./mvnw test -Dtest='*ValidacionTest*'
+./mvnw test -Dtest='*ValidacionTest*,*ValidacionTest$*'
 ```
 
 Estas pruebas no necesitan la base de datos. `./mvnw test` sin filtro también corre `ClubCampestreApplicationTests`, que sí necesita SQL Server encendido y el `.env` configurado.

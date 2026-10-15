@@ -13,6 +13,7 @@ import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
 
+/** Entidad JPA que relaciona habitaciones con sus características (muchos a muchos). */
 @Entity
 @Table(name = "habitacion_caracteristica")
 @Getter

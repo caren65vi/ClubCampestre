@@ -10,6 +10,7 @@ import com.clubcampestre.dto.TipoContactoDTO;
 import com.clubcampestre.entity.TipoContacto;
 import com.clubcampestre.repository.TipoContactoRepository;
 
+/** Lógica de negocio del catálogo de tipos de contacto. */
 @Service
 public class TipoContactoService {
 

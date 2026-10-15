@@ -14,6 +14,10 @@ import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
 
+/**
+ * Entidad JPA de la tabla empleado.
+ * La llave primaria es el número de documento; el estado puede ser activo, vacaciones o inactivo.
+ */
 @Entity
 @Table(name = "empleado")
 @Getter

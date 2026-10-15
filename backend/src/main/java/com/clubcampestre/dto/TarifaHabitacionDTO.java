@@ -7,6 +7,7 @@ import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 
+/** Asignación de una tarifa a una habitación desde una fecha de aplicación. */
 @Getter
 @Setter
 public class TarifaHabitacionDTO {

@@ -6,6 +6,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+/** Entidad JPA de la tabla cargo: cargos laborales y su salario base, por área. */
 @Entity
 @Table(name = "cargo")
 @Getter

@@ -9,6 +9,7 @@ import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
 
+/** Entidad JPA de la tabla tipo_contacto: catálogo de medios de contacto. */
 @Entity
 @Table(name = "tipo_contacto")
 @Getter

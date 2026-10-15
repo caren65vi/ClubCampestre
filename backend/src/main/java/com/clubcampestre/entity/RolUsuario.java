@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+/** Entidad JPA de la tabla rol: roles que determinan los permisos de los usuarios. */
 @Entity
 @Table(name = "rol")
 @Getter

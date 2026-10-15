@@ -3,6 +3,7 @@ package com.clubcampestre.dto;
 import lombok.Getter;
 import lombok.Setter;
 
+/** Datos de un tipo de documento de identidad (CC, CE, TI, PA, RC). */
 @Getter
 @Setter
 public class TipoDocumentoDTO {

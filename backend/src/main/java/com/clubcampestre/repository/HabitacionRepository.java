@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import com.clubcampestre.entity.roomsGest.Habitacion;
 
+/** Repositorio JPA de habitaciones. */
 @Repository
 public interface HabitacionRepository extends JpaRepository<Habitacion, Integer> {
 

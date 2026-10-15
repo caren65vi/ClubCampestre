@@ -8,6 +8,7 @@ import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
 
+/** Datos de una habitación y sus características. */
 @Getter
 @Setter
 public class HabitacionDTO {

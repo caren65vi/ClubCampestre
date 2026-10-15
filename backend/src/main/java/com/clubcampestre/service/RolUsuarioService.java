@@ -10,6 +10,7 @@ import com.clubcampestre.dto.RolUsuarioDTO;
 import com.clubcampestre.entity.RolUsuario;
 import com.clubcampestre.repository.RolUsuarioRepository;
 
+/** Lógica de negocio del catálogo de roles. */
 @Service
 public class RolUsuarioService {
 

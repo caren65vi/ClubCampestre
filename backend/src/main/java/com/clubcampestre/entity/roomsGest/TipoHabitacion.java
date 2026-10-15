@@ -7,6 +7,7 @@ import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
 
+/** Entidad JPA de la tabla tipo_habitacion (sencilla, doble, familiar...). */
 @Entity
 @Table(name = "tipo_habitacion")
 @Getter

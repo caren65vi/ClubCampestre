@@ -15,6 +15,7 @@ import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
 
+/** Entidad JPA de la tabla tarifa: valores de hospedaje por temporada. */
 @Entity
 @Table(name = "tarifa")
 @Getter

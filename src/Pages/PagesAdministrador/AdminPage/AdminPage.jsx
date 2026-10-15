@@ -1,3 +1,6 @@
+/**
+ * Encabezado genérico para las páginas del panel administrativo.
+ */
 import './AdminPage.css'
 
 const AdminPage = ({ title, description }) => {

@@ -1,3 +1,7 @@
+/**
+ * Cliente de la API de empleados. request() agrega el token JWT, maneja los errores
+ * y cierra la sesión si el token venció. Cada función corresponde a un endpoint de /api/empleados.
+ */
 import { getEmployeeSession, logoutEmpleado } from '../FireBase/authEmpleado'
 
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8080/api'
@@ -34,17 +38,21 @@ export const request = async (path, options = {}) => {
   return data
 }
 
+// GET /empleados
 export const listarEmpleados = () => request('/empleados')
 
+// GET /empleados/{documento}
 export const buscarEmpleado = (numeroDocumento) => request(
   `/empleados/${encodeURIComponent(numeroDocumento)}`,
 )
 
+// POST /empleados
 export const crearEmpleado = (empleado) => request('/empleados', {
   method: 'POST',
   body: JSON.stringify(empleado),
 })
 
+// PUT /empleados/{documento}
 export const actualizarEmpleado = (numeroDocumento, empleado) => request(
   `/empleados/${encodeURIComponent(numeroDocumento)}`,
   {
@@ -68,6 +76,7 @@ export const cambiarEstadoEmpleado = (numeroDocumento, cambio) => request(
   },
 )
 
+// GET /empleados/{documento}/historial
 export const obtenerHistorialEmpleado = (numeroDocumento) => request(
   `/empleados/${encodeURIComponent(numeroDocumento)}/historial`,
 )

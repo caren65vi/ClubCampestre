@@ -1,6 +1,11 @@
+/**
+ * Campos reutilizables de los formularios de inicio de sesión:
+ * CampoTexto, CampoContrasena (con botón para mostrar/ocultar), Recordar y SesionActiva.
+ */
 import { useState } from 'react';
 import { ArrowRight, Eye, EyeOff, Lock, LogOut, UserRoundCheck } from 'lucide-react';
 
+// Campo de texto con etiqueta, ícono y mensaje de error
 export function CampoTexto({ id, label, icono: Icono, extra, error, ...props }) {
   return (
     <div className="lg-field">
@@ -16,6 +21,7 @@ export function CampoTexto({ id, label, icono: Icono, extra, error, ...props }) 
   );
 }
 
+// Campo de contraseña con botón para mostrarla u ocultarla
 export function CampoContrasena({ id, label, extra, error, ...props }) {
   const [visible, setVisible] = useState(false);
   return (
@@ -41,6 +47,7 @@ export function CampoContrasena({ id, label, extra, error, ...props }) {
   );
 }
 
+// Casilla "Recordar sesión"
 export function Recordar({ checked, onChange }) {
   return (
     <label className="lg-check">

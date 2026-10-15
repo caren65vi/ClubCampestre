@@ -1,9 +1,13 @@
+/**
+ * Barra de navegación superior del sitio público, con menú desplegable en móvil.
+ */
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './barraNavegador.css';
 import LogoDos from '../../assets/LogoDos.png';
 
 const BarraNavegador = () => {
+  // Estado del menú en pantallas pequeñas (abierto / cerrado)
   const [menuOpen, setMenuOpen] = useState(false);
   const navigate = useNavigate();
 

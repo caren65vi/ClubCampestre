@@ -1,3 +1,8 @@
+/**
+ * RF-0113 y RF-0114 - Actualizar empleado y cambiar su estado laboral.
+ * Muestra los datos actuales (el documento no se puede editar), permite modificar cargo, área,
+ * teléfono y correo, cambiar el estado (activo, vacaciones, inactivo) y consultar la bitácora.
+ */
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import {
@@ -41,6 +46,7 @@ const indicativos = [
   { valor: "+34", etiqueta: "ES +34" },
 ];
 
+// Estados laborales que se pueden asignar
 const ESTADOS = [
   { valor: "activo", etiqueta: "Activo", detalle: "Acceso pleno", icono: CircleCheck },
   { valor: "vacaciones", etiqueta: "Vacaciones", detalle: "Pausado", icono: Palmtree },
@@ -72,6 +78,7 @@ const formatoFecha = (iso) => {
 
 const formatoHora = (iso) => (iso && iso.length >= 16 ? iso.slice(11, 16) : "");
 
+// Calcula la antigüedad a partir de la fecha de ingreso
 const antiguedad = (fechaIngreso) => {
   if (!fechaIngreso) return "—";
   const [a, m, d] = fechaIngreso.split("-").map(Number);
@@ -94,11 +101,13 @@ const permisoDe = (h) => {
   return "Baja";
 };
 
+// Celular colombiano: 10 dígitos; otros países: 7 a 15 dígitos
 const telefonoValido = (indicativo, telefono) => {
   const digitos = telefono.replace(/\s/g, "");
   return indicativo === "+57" ? /^\d{10}$/.test(digitos) : /^\d{7,10}$/.test(digitos);
 };
 
+// Crea el estado del formulario a partir del empleado consultado
 const formDesde = (empleado) => ({
   idArea: empleado.idArea != null ? String(empleado.idArea) : "",
   idCargo: empleado.idCargo != null ? String(empleado.idCargo) : "",
@@ -111,6 +120,7 @@ function EstadoBadge({ estado }) {
   return <span className={`ae-badge ae-badge--${estado || "inactivo"}`}>{etiquetaEstado(estado)}</span>;
 }
 
+// Componente de la pantalla de actualización. Lee el documento de la URL con useParams
 export default function ActualizarEmpleado({ onVolver }) {
   const { numeroDocumento } = useParams();
   const navigate = useNavigate();
@@ -133,6 +143,7 @@ export default function ActualizarEmpleado({ onVolver }) {
   const [aplicando, setAplicando] = useState(false);
   const [mensajeEstado, setMensajeEstado] = useState({ tipo: "", texto: "" });
 
+  // Consulta en paralelo el empleado y su bitácora
   const pedirEmpleado = useCallback(() => Promise.all([
     buscarEmpleado(numeroDocumento),
     obtenerHistorialEmpleado(numeroDocumento),
@@ -156,6 +167,7 @@ export default function ActualizarEmpleado({ onVolver }) {
       .finally(() => setCargando(false));
   }, [pedirEmpleado]);
 
+  // Áreas disponibles a partir del catálogo de cargos
   const areas = useMemo(() => {
     const unicas = new Map();
     cargos.forEach((c) => unicas.set(c.idArea, { idArea: c.idArea, nombreArea: c.nombreArea, descripcionArea: c.descripcionArea }));
@@ -181,12 +193,14 @@ export default function ActualizarEmpleado({ onVolver }) {
     setMensajeInfo({ tipo: "", texto: "" });
   };
 
+  // Vuelve a los datos guardados
   const descartarCambios = () => {
     setForm(formDesde(empleado));
     setErrores({});
     setMensajeInfo({ tipo: "", texto: "" });
   };
 
+  // RF-0113: valida teléfono y correo y envía PUT /api/empleados/{documento}
   const guardarCambios = async (e) => {
     e.preventDefault();
     const encontrados = {};
@@ -232,6 +246,7 @@ export default function ActualizarEmpleado({ onVolver }) {
     }
   };
 
+  // RF-0114: exige estado nuevo, fecha y motivo, y envía PATCH .../estado
   const aplicarEstado = async () => {
     setMensajeEstado({ tipo: "", texto: "" });
     if (!nuevoEstado) {
@@ -271,6 +286,7 @@ export default function ActualizarEmpleado({ onVolver }) {
     }
   };
 
+  // Descarga la bitácora completa en CSV
   const exportarCSV = () => {
     const celda = (valor) => `"${String(valor ?? "").replace(/"/g, '""')}"`;
     const filas = [

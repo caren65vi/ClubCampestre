@@ -1,4 +1,6 @@
-import React from 'react'
+/**
+ * Sección "Sobre nosotros" con la presentación del club.
+ */
 import './Presentacion.css'
 import imagenCoralinas from '../../assets/imagenCoralinas.png'
 

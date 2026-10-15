@@ -1,3 +1,6 @@
+/**
+ * Prototipo inicial de la lista de empleados con datos de ejemplo (reemplazado por gestionEmpleados).
+ */
 import { useMemo, useState } from 'react'
 import { Search, Plus, Pencil } from 'lucide-react'
 import './VisualizarEmpleados.css'

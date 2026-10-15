@@ -1,3 +1,7 @@
+/**
+ * Sesión de los colaboradores: inicio de sesión contra el backend (JWT),
+ * lectura de la sesión guardada y cierre de sesión.
+ */
 const API_URL = "http://localhost:8080/api/auth";
 const EMPLOYEE_SESSION_KEY = "employeeSession";
 
@@ -43,6 +47,7 @@ const tokenVencido = (token) => {
   }
 };
 
+// Devuelve la sesión guardada o null si no existe o el token venció
 export const getEmployeeSession = () => {
   try {
     const guardada = localStorage.getItem(EMPLOYEE_SESSION_KEY) ?? sessionStorage.getItem(EMPLOYEE_SESSION_KEY);
@@ -58,6 +63,7 @@ export const getEmployeeSession = () => {
   }
 };
 
+// Borra la sesión del colaborador
 export const logoutEmpleado = () => {
   localStorage.removeItem(EMPLOYEE_SESSION_KEY);
   sessionStorage.removeItem(EMPLOYEE_SESSION_KEY);

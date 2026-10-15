@@ -1,3 +1,8 @@
+/**
+ * Punto de entrada de la aplicación React.
+ * Monta <App /> en #root y define las rutas principales con React Router:
+ * "/" sitio público, "/login" acceso de clientes y colaboradores, "/admin/*" panel administrativo.
+ */
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';

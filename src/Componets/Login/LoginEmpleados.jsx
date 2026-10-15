@@ -1,9 +1,14 @@
+/**
+ * Formulario de acceso corporativo: valida los campos, llama a POST /api/auth/login
+ * y redirige al panel /admin si el rol tiene acceso total.
+ */
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ArrowRight, AtSign, CircleAlert, Info, Lock, LogIn } from 'lucide-react';
 import { getEmployeeSession, loginEmpleado, logoutEmpleado } from '../../FireBase/authEmpleado';
 import { CampoContrasena, CampoTexto, Recordar, SesionActiva } from './LoginCampos';
 
+// Roles que pueden entrar al panel administrativo
 const ROLES_ACCESO_TOTAL = ['ADMIN', 'ADMINISTRADOR', 'LIDER'];
 
 const destinoSegunRol = (rol) => (ROLES_ACCESO_TOTAL.includes(rol?.trim().toUpperCase()) ? '/admin' : '/');
@@ -19,6 +24,7 @@ export default function LoginEmpleados() {
   const [cargando, setCargando] = useState(false);
   const [ayudaContrasena, setAyudaContrasena] = useState(false);
 
+  // Valida usuario y contraseña, inicia sesión y redirige según el rol (evento onSubmit)
   const ingresar = async (e) => {
     e.preventDefault();
     setError('');
@@ -45,6 +51,7 @@ export default function LoginEmpleados() {
     }
   };
 
+  // Cierra la sesión guardada del colaborador
   const cerrarSesion = () => {
     logoutEmpleado();
     setSesion(null);

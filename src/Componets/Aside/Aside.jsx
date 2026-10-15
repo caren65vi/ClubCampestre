@@ -1,4 +1,6 @@
-import React from 'react'
+/**
+ * Botones flotantes de contacto rápido (WhatsApp, Instagram y correo).
+ */
 import './Aside.css'
 import whatsappIcon from '../../assets/whatsapp.svg'
 import instagramIcon from '../../assets/instagram.svg'

@@ -1,3 +1,6 @@
+/**
+ * Menú lateral del panel administrativo con el usuario en sesión y el botón de cerrar sesión.
+ */
 import { useState } from 'react'
 import { NavLink, useNavigate } from 'react-router-dom'
 import DashboardOutlinedIcon from '@mui/icons-material/DashboardOutlined'
@@ -9,6 +12,7 @@ import LogoutIcon from '@mui/icons-material/Logout'
 import { getEmployeeSession, logoutEmpleado } from '../../../FireBase/authEmpleado'
 import './NavAdmin.css'
 
+// Opciones del menú agrupadas por sección
 const sections = [
   {
     title: 'PANEL',
@@ -32,6 +36,7 @@ const NavAdmin = () => {
 
   const close = () => setIsOpen(false)
 
+  // Cierra la sesión y vuelve al login
   const signOut = async () => {
     logoutEmpleado()
     navigate('/login')

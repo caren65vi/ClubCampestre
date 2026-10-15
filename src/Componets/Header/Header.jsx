@@ -1,3 +1,6 @@
+/**
+ * Portada (hero) del sitio con la imagen principal y el formulario rápido de reserva.
+ */
 
 import './Header.css'
 

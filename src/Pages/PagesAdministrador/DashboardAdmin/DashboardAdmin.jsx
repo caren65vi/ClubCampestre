@@ -1,3 +1,7 @@
+/**
+ * Panel administrativo. Protege las rutas /admin/*: sin sesión de colaborador redirige al login.
+ * Define las subrutas del módulo de empleados (lista, registrar y editar).
+ */
 import { Navigate, Route, Routes, useNavigate } from 'react-router-dom'
 import { getEmployeeSession } from '../../../FireBase/authEmpleado'
 import NavAdmin from '../NavAdmin/NavAdmin.jsx'
@@ -6,6 +10,7 @@ import RegistrarEmpleado from '../../PageEmpleyGes/resgistrarEmpleados/resgistra
 import ActualizarEmpleado from '../../PageEmpleyGes/ActualizarEmpleado/ActualizarEmpleado.jsx'
 import './DashboardAdmin.css'
 
+// Pantalla de bienvenida del panel
 const ResumenAdmin = () => (
   <section className="dashboardAdminHome">
     <span>Panel administrativo</span>
@@ -22,6 +27,7 @@ const DashboardAdmin = () => {
     return <Navigate to="/login?acceso=corporativo" replace />
   }
 
+  // Regresa a la lista de empleados, opcionalmente con un aviso de éxito
   const volverALista = (aviso) => navigate('/admin/empleados', aviso ? { state: { aviso } } : undefined)
 
   return (

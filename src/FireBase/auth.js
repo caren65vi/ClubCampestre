@@ -1,3 +1,7 @@
+/**
+ * Funciones de autenticación de clientes con Firebase (correo, Google, GitHub, Microsoft)
+ * y consulta de sus datos en Firestore.
+ */
 import { auth, db } from "./config";
 import {
   signInWithEmailAndPassword,
@@ -70,6 +74,7 @@ const createSocialUserIfMissing = async (firebaseUser) => {
   return newUser;
 };
 
+// Inicio de sesión de clientes con correo y contraseña
 export const signIn = async (email, password) => {
   const res = await signInWithEmailAndPassword(auth, normalizeEmail(email), password);
 
@@ -77,6 +82,7 @@ export const signIn = async (email, password) => {
   return { user: res.user, userData };
 };
 
+// Inicio de sesión con Google
 export const signInGoogle = async () => {
   const res = await signInWithPopup(auth, googleProvider);
   const userData = await createSocialUserIfMissing(res.user);
@@ -95,6 +101,7 @@ export const signInGithub = async () => {
   return { user: res.user, userData };
 };
 
+// Registra un cliente nuevo en Firebase y guarda sus datos en Firestore
 export const register = async (email, password, nombre) => {
   const normalizedEmail = normalizeEmail(email);
   const existingUser = await fetchUserDataByEmail(normalizedEmail);

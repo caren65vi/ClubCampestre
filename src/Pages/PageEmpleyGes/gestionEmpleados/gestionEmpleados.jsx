@@ -1,3 +1,8 @@
+/**
+ * RF-0110 y RF-0112 - Gestión de empleados.
+ * Lista los empleados con indicadores, búsqueda, filtros por área y estado, orden, paginación,
+ * exportación a Excel (CSV) y las acciones de actualizar y dar de baja.
+ */
 import { useEffect, useMemo, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import {
@@ -23,6 +28,7 @@ import {
 import { eliminarEmpleado, listarEmpleados } from '../../../services/empleadosApi'
 import './GestionarEmpleados.css'
 
+// Cantidad de empleados por página de la tabla
 const POR_PAGINA = 8
 
 const estadoLabels = { activo: 'Activo', vacaciones: 'En vacaciones', inactivo: 'Inactivo' }
@@ -37,6 +43,7 @@ const ordenes = [
 // Colores del proyecto que se reparten entre las áreas (chip y avatar)
 const tonos = ['accent', 'pool', 'nature', 'cta']
 
+// Une nombres y apellidos en el nombre completo
 const getNombre = (empleado) => [
   empleado.primerNombre,
   empleado.segundoNombre,
@@ -49,11 +56,13 @@ const getIniciales = (empleado) => [empleado.primerNombre, empleado.primerApelli
   .map((parte) => parte.charAt(0).toUpperCase())
   .join('')
 
+// Normaliza el estado del empleado (activo por defecto)
 const getEstado = (empleado) => {
   const estado = empleado.estado?.toLowerCase()
   return estado === 'activo' || estado === 'vacaciones' ? estado : 'inactivo'
 }
 
+// Muestra el celular agrupado: 312 456 7890
 const formatoTelefono = (telefono = '') => {
   const digitos = telefono.replace(/\D/g, '')
   return digitos.length === 10 ? `${digitos.slice(0, 3)} ${digitos.slice(3, 6)} ${digitos.slice(6)}` : telefono
@@ -71,6 +80,7 @@ const paginasVisibles = (actual, total) => {
   return paginas
 }
 
+// Componente de la pantalla Gestión de empleados
 const GestionarEmpleados = ({ onRegistrar, onEditar }) => {
   const navigate = useNavigate()
   const location = useLocation()
@@ -98,11 +108,13 @@ const GestionarEmpleados = ({ onRegistrar, onEditar }) => {
       .finally(() => setLoading(false))
   }, [])
 
+  // Indicadores: total, activos, en vacaciones e inactivos
   const conteos = useMemo(() => empleados.reduce((acc, empleado) => {
     acc[getEstado(empleado)] += 1
     return acc
   }, { activo: 0, vacaciones: 0, inactivo: 0 }), [empleados])
 
+  // Áreas presentes en la lista, con su cantidad de empleados (chips de filtro)
   const areas = useMemo(() => {
     const porArea = new Map()
     empleados.forEach((empleado) => {
@@ -114,6 +126,7 @@ const GestionarEmpleados = ({ onRegistrar, onEditar }) => {
 
   const tonoDeArea = (nombreArea) => areas.find((area) => area.nombre === nombreArea)?.tono ?? 'accent'
 
+  // RF-0112: aplica búsqueda por nombre/documento/cargo, área, estado y orden
   const empleadosFiltrados = useMemo(() => {
     const texto = busqueda.trim().toLowerCase()
     const filtrados = empleados.filter((empleado) => {
@@ -152,6 +165,7 @@ const GestionarEmpleados = ({ onRegistrar, onEditar }) => {
   const cambiarArea = conFiltro(setAreaActiva)
   const cambiarEstado = conFiltro(setEstadoFiltro)
 
+  // Quita todos los filtros y vuelve a la primera página
   const limpiarFiltros = () => {
     setBusqueda('')
     setAreaActiva('Todas')
@@ -164,6 +178,7 @@ const GestionarEmpleados = ({ onRegistrar, onEditar }) => {
     ? onEditar(empleado)
     : navigate(`/admin/empleados/${encodeURIComponent(empleado.numeroDocumento)}/editar`))
 
+  // Baja lógica: pide confirmación y llama a DELETE /api/empleados/{documento}
   const eliminar = async (empleado) => {
     const nombre = getNombre(empleado)
     if (!window.confirm(`¿Dar de baja a ${nombre}? Quedará como inactivo y el cambio se guardará en su bitácora.`)) return
@@ -181,6 +196,7 @@ const GestionarEmpleados = ({ onRegistrar, onEditar }) => {
     }
   }
 
+  // Descarga la lista filtrada en un archivo CSV que abre Excel
   const exportar = () => {
     const celda = (valor) => `"${String(valor ?? '').replace(/"/g, '""')}"`
     const filas = [

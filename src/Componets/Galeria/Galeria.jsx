@@ -1,4 +1,6 @@
-import React from 'react'
+/**
+ * Galería de experiencias del club (piscina, hospedaje, restaurante...).
+ */
 import './Galeria.css'
 import Uno from '../../assets/Uno.png'
 import Segunda from '../../assets/Segunda.png'
@@ -9,6 +11,7 @@ import Sexta from '../../assets/sexta.png'
 import LogoDos from '../../assets/LogoDos.png'
 import ImagenCoralinas from '../../assets/imagenCoralinas.png'
 
+// Datos de las tarjetas de la galería
 const experiencias = [
     { src: Uno, alt: 'Piscina principal de Villa Katy al atardecer' },
     { src: Segunda, alt: 'Habitación con vista al club campestre' },

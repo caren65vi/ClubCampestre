@@ -1,6 +1,10 @@
+/**
+ * Sección de servicios del club; las tarjetas se generan con map() a partir de un arreglo.
+ */
 import { Bath, BedDouble, Bubbles, CalendarDays, Sparkles, UtensilsCrossed, WavesLadder, Wifi } from 'lucide-react'
 import './Servicios.css'
 
+// Datos de los servicios que se muestran en tarjetas
 const servicios = [
   {
     label: 'Restaurante',

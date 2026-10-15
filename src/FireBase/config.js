@@ -1,3 +1,6 @@
+/**
+ * Configuración de Firebase. Los valores se leen de las variables VITE_FIREBASE_* del archivo .env.
+ */
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";

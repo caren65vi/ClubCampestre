@@ -1,4 +1,6 @@
-import React from 'react'
+/**
+ * Pie de página con datos de contacto, enlaces y redes sociales del club.
+ */
 import './Footer.css'
 
 const Footer = () => {

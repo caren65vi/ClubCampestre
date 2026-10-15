@@ -1,3 +1,7 @@
+/**
+ * Formulario de inicio de sesión de clientes con Firebase Authentication:
+ * correo y contraseña, proveedores externos (Google) y recuperación de contraseña.
+ */
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ArrowRight, CalendarCheck, CircleAlert, CircleCheck, Lock, Mail } from 'lucide-react';
@@ -13,6 +17,7 @@ import { CampoContrasena, CampoTexto, Recordar, SesionActiva } from './LoginCamp
 
 const CORREO = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
+// Traduce los códigos de error de Firebase a mensajes en español
 const traducirError = (code) => {
   const errores = {
     'auth/user-not-found': 'No existe una cuenta con ese correo.',
@@ -59,6 +64,7 @@ export default function LoginClientes() {
   const [avisoRecuperar, setAvisoRecuperar] = useState({ tipo: '', texto: '' });
   const [enviando, setEnviando] = useState(false);
 
+  // Escucha los cambios de sesión de Firebase
   useEffect(() => onAuthChange((usuario) => {
     setSesion(usuario);
     setComprobando(false);
@@ -75,6 +81,7 @@ export default function LoginClientes() {
     }
   };
 
+  // Inicia sesión con correo y contraseña después de validar los campos
   const ingresarConCorreo = async (e) => {
     e.preventDefault();
     setError('');
@@ -100,6 +107,7 @@ export default function LoginClientes() {
     }
   };
 
+  // Inicia sesión con un proveedor externo (Google)
   const ingresarConProveedor = (proveedor) => async () => {
     setError('');
     setCargando(true);
@@ -114,6 +122,7 @@ export default function LoginClientes() {
     }
   };
 
+  // Envía el correo para restablecer la contraseña
   const enviarRecuperacion = async (e) => {
     e.preventDefault();
     setAvisoRecuperar({ tipo: '', texto: '' });

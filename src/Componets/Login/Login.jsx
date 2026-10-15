@@ -1,3 +1,8 @@
+/**
+ * Página de inicio de sesión con dos pestañas:
+ * - Clientes y huéspedes: autenticación con Firebase (LoginClientes).
+ * - Acceso corporativo: autenticación contra el backend con JWT (LoginEmpleados).
+ */
 import { useSearchParams, Link } from 'react-router-dom';
 import { ArrowLeft, Briefcase, ShieldCheck, Sprout, User } from 'lucide-react';
 import LogoDos from '../../assets/LogoDos.png';
@@ -31,6 +36,7 @@ const Login = () => {
   const actual = ACCESOS[acceso];
   const Formulario = actual.componente;
 
+  // Cambia de pestaña guardando el tipo de acceso en la URL (?acceso=corporativo)
   const cambiarAcceso = (nuevo) => {
     setParams(nuevo === 'clientes' ? {} : { acceso: nuevo }, { replace: true });
   };

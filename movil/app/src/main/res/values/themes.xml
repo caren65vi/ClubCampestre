@@ -1,0 +1,21 @@
+<resources>
+    <style name="Theme.VillaKaty" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <item name="colorPrimary">@color/vk_primario</item>
+        <item name="colorPrimaryVariant">@color/vk_primario_oscuro</item>
+        <item name="colorOnPrimary">#FFFFFF</item>
+        <item name="colorSecondary">@color/vk_dorado</item>
+        <item name="colorOnSecondary">#FFFFFF</item>
+        <item name="android:colorBackground">@color/vk_fondo</item>
+        <item name="android:statusBarColor">@color/vk_texto</item>
+        <item name="android:windowBackground">@color/vk_fondo</item>
+    </style>
+
+    <!-- Estilo común de los títulos de sección -->
+    <style name="VK.Seccion" parent="">
+        <item name="android:textSize">13sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:letterSpacing">0.08</item>
+        <item name="android:textColor">@color/vk_dorado</item>
+    </style>
+</resources>

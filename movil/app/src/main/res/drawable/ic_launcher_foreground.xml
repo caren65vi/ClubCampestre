@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Ícono: palmera estilizada de Villa Katy -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    <path android:fillColor="#A8813E" android:pathData="M52,48h4l3,30h-10z" />
+    <path android:fillColor="#3E6B48" android:pathData="M54,48c-6,-10 -16,-12 -24,-6 8,-1 15,1 24,6zM54,48c6,-10 16,-12 24,-6 -8,-1 -15,1 -24,6zM54,48c-2,-11 -10,-17 -19,-17 7,3 12,9 19,17zM54,48c2,-11 10,-17 19,-17 -7,3 -12,9 -19,17z" />
+    <path android:fillColor="#D9784A" android:pathData="M30,80h48v4h-48z" />
+</vector>

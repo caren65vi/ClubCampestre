@@ -1,0 +1,18 @@
+<resources>
+    <!-- Paleta de Villa Katy (igual a la versión web) -->
+    <color name="vk_fondo">#F8F4EC</color>
+    <color name="vk_superficie">#FFFFFF</color>
+    <color name="vk_primario">#D9784A</color>
+    <color name="vk_primario_oscuro">#B85E34</color>
+    <color name="vk_dorado">#A8813E</color>
+    <color name="vk_texto">#1F2A2E</color>
+    <color name="vk_texto_suave">#6B6560</color>
+    <color name="vk_borde">#E8DFD0</color>
+    <color name="vk_activo">#3E6B48</color>
+    <color name="vk_activo_fondo">#E3EEE4</color>
+    <color name="vk_vacaciones">#9A6A1F</color>
+    <color name="vk_vacaciones_fondo">#F6EBD5</color>
+    <color name="vk_inactivo">#B3261E</color>
+    <color name="vk_inactivo_fondo">#F9E1DE</color>
+    <color name="ic_launcher_background">#F3E3CF</color>
+</resources>

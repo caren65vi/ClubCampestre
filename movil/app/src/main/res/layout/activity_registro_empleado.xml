@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- RF-0111: formulario de registro de empleado (POST /api/empleados) -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/barra"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/vk_texto"
+        app:navigationIcon="?attr/homeAsUpIndicator"
+        app:navigationIconTint="#FFFFFF"
+        app:title="@string/registro_titulo"
+        app:titleTextColor="#FFFFFF" />
+
+    <ScrollView
+        android:id="@+id/desplazamiento"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <TextView style="@style/VK.Seccion" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/datos_personales" />
+
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="8dp" android:text="@string/tipo_documento" android:textColor="@color/vk_texto_suave" />
+            <Spinner android:id="@+id/listaTipoDocumento" android:layout_width="match_parent" android:layout_height="48dp" />
+
+            <com.google.android.material.textfield.TextInputLayout android:id="@+id/capaDocumento" style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="6dp" android:hint="@string/documento">
+                <com.google.android.material.textfield.TextInputEditText android:id="@+id/campoDocumento" android:layout_width="match_parent" android:layout_height="wrap_content" android:inputType="number" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout android:id="@+id/capaPrimerNombre" style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="6dp" android:hint="@string/primer_nombre">
+                <com.google.android.material.textfield.TextInputEditText android:id="@+id/campoPrimerNombre" android:layout_width="match_parent" android:layout_height="wrap_content" android:inputType="textPersonName|textCapWords" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout android:id="@+id/capaSegundoNombre" style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="6dp" android:hint="@string/segundo_nombre">
+                <com.google.android.material.textfield.TextInputEditText android:id="@+id/campoSegundoNombre" android:layout_width="match_parent" android:layout_height="wrap_content" android:inputType="textPersonName|textCapWords" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout android:id="@+id/capaPrimerApellido" style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="6dp" android:hint="@string/primer_apellido">
+                <com.google.android.material.textfield.TextInputEditText android:id="@+id/campoPrimerApellido" android:layout_width="match_parent" android:layout_height="wrap_content" android:inputType="textPersonName|textCapWords" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout android:id="@+id/capaSegundoApellido" style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="6dp" android:hint="@string/segundo_apellido">
+                <com.google.android.material.textfield.TextInputEditText android:id="@+id/campoSegundoApellido" android:layout_width="match_parent" android:layout_height="wrap_content" android:inputType="textPersonName|textCapWords" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <TextView style="@style/VK.Seccion" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="16dp" android:text="@string/contacto" />
+
+            <com.google.android.material.textfield.TextInputLayout android:id="@+id/capaCelular" style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="6dp" android:hint="@string/celular" app:prefixText="+57 ">
+                <com.google.android.material.textfield.TextInputEditText android:id="@+id/campoCelular" android:layout_width="match_parent" android:layout_height="wrap_content" android:inputType="phone" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout android:id="@+id/capaCorreo" style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="6dp" android:hint="@string/correo">
+                <com.google.android.material.textfield.TextInputEditText android:id="@+id/campoCorreo" android:layout_width="match_parent" android:layout_height="wrap_content" android:inputType="textEmailAddress" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <TextView style="@style/VK.Seccion" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="16dp" android:text="@string/datos_laborales" />
+
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="8dp" android:text="@string/cargo" android:textColor="@color/vk_texto_suave" />
+            <Spinner android:id="@+id/listaCargo" android:layout_width="match_parent" android:layout_height="48dp" />
+
+            <com.google.android.material.textfield.TextInputLayout android:id="@+id/capaFecha" style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="6dp" android:hint="@string/fecha_ingreso">
+                <com.google.android.material.textfield.TextInputEditText android:id="@+id/campoFecha" android:layout_width="match_parent" android:layout_height="wrap_content" android:inputType="date" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout android:id="@+id/capaSalario" style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="6dp" android:hint="@string/salario" app:prefixText="$ ">
+                <com.google.android.material.textfield.TextInputEditText android:id="@+id/campoSalario" android:layout_width="match_parent" android:layout_height="wrap_content" android:inputType="numberDecimal|numberSigned" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <TextView
+                android:id="@+id/textoError"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:background="@color/vk_inactivo_fondo"
+                android:padding="10dp"
+                android:textColor="@color/vk_inactivo"
+                android:visibility="gone" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/botonGuardar"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:layout_marginTop="16dp"
+                android:text="@string/guardar"
+                app:cornerRadius="14dp" />
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>
